@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80" preserveAspectRatio="xMidYMid meet">
+  <!-- Simple clean logo design -->
+  
+  <!-- Orange/yellow curved element -->
+  <path fill="#f68712" d="M 20 20 Q 40 10 60 20 Q 50 30 30 25 Z"/>
+  
+  <!-- Blue square element -->
+  <rect x="32" y="15" width="25" height="25" fill="#0077be"/>
+  
+  <!-- Green curved element -->
+  <path fill="#40b93c" d="M 50 15 Q 70 5 90 15 Q 80 25 60 20 Z"/>
+  
+  <!-- Company text -->
+  <text x="15" y="55" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#000000">HEG</text>
+  <text x="15" y="70" font-family="Arial, sans-serif" font-size="8" fill="#666666">INDIA</text>
+</svg>
