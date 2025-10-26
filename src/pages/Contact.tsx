@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase, isSupabaseEnabled } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
@@ -14,6 +15,7 @@ const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
   phone: z.string().trim().min(10, "Phone number must be at least 10 digits").max(20),
+  productInterest: z.string().trim().min(1, "Please select your product interest").max(100),
   message: z.string().trim().min(1, "Message is required").max(1000),
 });
 
@@ -22,6 +24,7 @@ const Contact = () => {
     name: "",
     email: "",
     phone: "",
+    productInterest: "",
     message: "",
   });
   const [loading, setLoading] = useState(false);
@@ -34,7 +37,7 @@ const Contact = () => {
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -59,6 +62,7 @@ const Contact = () => {
           email: validatedData.email,
           phone: validatedData.phone,
           message: validatedData.message,
+          product_name: validatedData.productInterest,
         });
 
         toast({
@@ -76,6 +80,7 @@ const Contact = () => {
               email: validatedData.email,
               phone: validatedData.phone,
               product_id: null,
+              product_interest: validatedData.productInterest,
               message: validatedData.message,
             });
 
@@ -93,7 +98,7 @@ const Contact = () => {
         }
       }
 
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", productInterest: "", message: "" });
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -279,6 +284,36 @@ const Contact = () => {
                     {errors.phone && (
                       <p className="text-sm text-destructive mt-1">
                         {errors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="productInterest">Product Interest *</Label>
+                    <Select name="productInterest" value={formData.productInterest} onValueChange={(value) => setFormData(prev => ({ ...prev, productInterest: value }))}>
+                      <SelectTrigger className={errors.productInterest ? "border-destructive" : ""}>
+                        <SelectValue placeholder="Select your area of interest" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+                        <SelectItem value="Organic Fertilizers">Organic Fertilizers</SelectItem>
+                        <SelectItem value="Vermi-Compost">Vermi-Compost</SelectItem>
+                        <SelectItem value="Cow-Dung Compost">Cow-Dung Compost</SelectItem>
+                        <SelectItem value="Organic Mix Fertilizer">Organic Mix Fertilizer</SelectItem>
+                        <SelectItem value="Neem Powder">Neem Powder</SelectItem>
+                        <SelectItem value="Neem Oil">Neem Oil</SelectItem>
+                        <SelectItem value="Sustainable Packaging">Sustainable Packaging</SelectItem>
+                        <SelectItem value="Compostable Bioplastics">Compostable Bioplastics</SelectItem>
+                        <SelectItem value="Bagasse Packaging">Bagasse Packaging</SelectItem>
+                        <SelectItem value="Paper Packaging">Paper Packaging</SelectItem>
+                        <SelectItem value="Cotton/Jute/Canvas Bags">Cotton/Jute/Canvas Bags</SelectItem>
+                        <SelectItem value="Partnership Opportunity">Partnership Opportunity</SelectItem>
+                        <SelectItem value="Export Inquiry">Export Inquiry</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.productInterest && (
+                      <p className="text-sm text-destructive mt-1">
+                        {errors.productInterest}
                       </p>
                     )}
                   </div>
