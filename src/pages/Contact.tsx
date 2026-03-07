@@ -136,7 +136,7 @@ const Contact = () => {
       {/* Quick Contact Row */}
       <section className="bg-green-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { icon: Mail, label: "Email Us", value: "hegde.resources@gmail.com" },
               { icon: Phone, label: "Call Us", value: "+91 96191 11045" },
