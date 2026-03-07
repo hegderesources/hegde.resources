@@ -29,3 +29,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Extracted image archives
+100% Cotton Towels-*/
+Canvas Bags-*/
+Compostable Bio Plastics-*/
+Cotton Bags-*/
+Jute Bags-*/
+Organic Fertilizers-*/
+Plant Based-*/

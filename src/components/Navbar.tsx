@@ -1,28 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/Hedge Header.png";
+import logo from "@/assets/Hedge.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  const isHomePage = location.pathname === '/';
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 50);
     };
-    
-    // Set initial scroll state based on current page
-    const isHomePage = location.pathname === '/';
-    if (!isHomePage) {
-      setIsScrolled(true); // Force scrolled state on non-home pages
-    }
-    
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, []);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -32,103 +28,99 @@ const Navbar = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  const isHomePage = location.pathname === '/';
-  const shouldShowScrolledState = isScrolled || !isHomePage;
+  const isTransparent = isHomePage && !isScrolled;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        shouldShowScrolledState 
-          ? "bg-white shadow-lg border-b border-gray-200" 
-          : "bg-white/95 backdrop-blur-sm shadow-md"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isTransparent
+          ? "bg-transparent"
+          : "bg-white shadow-sm border-b border-gray-100"
       }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          
-          {/* Logo */}
-          <Link to="/" className="flex items-center group">
-            <img 
-              src={logo} 
-              alt="HEGDE Resources" 
-              className="h-10 w-auto lg:h-16 lg:w-auto transition-transform duration-300 group-hover:scale-105"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-18">
+
+          <Link to="/" className="flex items-center">
+            <img
+              src={logo}
+              alt="HEGDE Resources"
+              className={`h-10 w-auto lg:h-14 object-contain transition-all duration-300 ${isTransparent ? "brightness-0 invert" : ""}`}
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative px-4 py-2 text-sm font-bold rounded-lg transition-all duration-300 group ${
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
                   location.pathname === link.path
-                    ? "text-green-700 bg-green-50" 
-                    : "text-black hover:text-green-700 hover:bg-gray-50"
+                    ? isTransparent
+                      ? "text-white bg-white/15"
+                      : "text-green-700 bg-green-50"
+                    : isTransparent
+                      ? "text-white/90 hover:text-white hover:bg-white/10"
+                      : "text-gray-700 hover:text-green-700 hover:bg-gray-50"
                 }`}
               >
                 {link.name}
-                <span className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 bg-green-500 transition-all duration-300 ${
-                  location.pathname === link.path ? "w-6" : "w-0 group-hover:w-6"
-                }`}></span>
               </Link>
             ))}
           </nav>
 
-          {/* CTA Button & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <Link to="/contact">
-              <Button 
-                className={`hidden md:flex items-center space-x-2 px-6 py-2 rounded-full font-bold transition-all duration-300 hover:scale-105 bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl`}
+              <Button
+                size="sm"
+                className={`hidden md:inline-flex text-sm font-medium px-5 py-2 rounded-md transition-colors duration-200 ${
+                  isTransparent
+                    ? "bg-white text-green-800 hover:bg-white/90"
+                    : "bg-green-700 text-white hover:bg-green-800"
+                }`}
               >
-                <span>Contact Us</span>
-                <ArrowRight className="h-4 w-4" />
+                Get in Touch
               </Button>
             </Link>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg transition-all duration-300 text-black hover:bg-gray-100"
+              className={`lg:hidden p-2 rounded-md transition-colors ${
+                isTransparent ? "text-white hover:bg-white/10" : "text-gray-700 hover:bg-gray-100"
+              }`}
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-        isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+      <div className={`lg:hidden transition-all duration-200 overflow-hidden ${
+        isMobileMenuOpen ? "max-h-screen" : "max-h-0"
       }`}>
-        <div className="bg-white/95 backdrop-blur-xl border-t border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <nav className="space-y-2">
-              {navLinks.map((link, index) => (
+        <div className="bg-white border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <nav className="space-y-1">
+              {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`block px-4 py-3 rounded-xl font-bold transition-all duration-300 ${
+                  className={`block px-4 py-2.5 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === link.path
-                      ? "text-green-700 bg-green-50 border-l-4 border-green-500"
-                      : "text-black hover:text-green-700 hover:bg-gray-50"
+                      ? "text-green-700 bg-green-50"
+                      : "text-gray-700 hover:text-green-700 hover:bg-gray-50"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  style={{ 
-                    animationDelay: `${index * 100}ms`,
-                  }}
-                  data-animate={isMobileMenuOpen}
                 >
                   {link.name}
                 </Link>
               ))}
             </nav>
-            
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <Link to="/contact">
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-xl py-3 font-bold flex items-center justify-center space-x-2">
-                  <span>Contact Us</span>
-                  <ArrowRight className="h-4 w-4" />
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button className="w-full bg-green-700 hover:bg-green-800 text-white rounded-md py-2.5 text-sm font-medium">
+                  Get in Touch
                 </Button>
               </Link>
             </div>

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ChevronRight, Leaf, Package, ArrowLeft, CheckCircle, ShoppingCart } from "lucide-react";
+import { ChevronRight, ArrowLeft, CheckCircle, ShoppingCart, Package, Truck, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import EnquiryModal from "@/components/EnquiryModal";
+import { productImages } from "@/lib/productImages";
+import SEO from "@/components/SEO";
 
 interface Product {
   id: string;
@@ -28,37 +28,18 @@ const ProductDetail = () => {
 
   // Comprehensive product data for all products
   const productData: Record<string, Product> = {
-    // Organic Fertilizers
+    // ── Organic Fertilizers ──
     "vermi-compost": {
       id: "vermi-compost",
-      name: "Vermi-Compost",
+      name: "Vermi Compost",
       category: "Organic Fertilizers",
       short_description: "Premium quality earthworm processed organic fertilizer for enhanced soil fertility and plant growth.",
-      description: "Our Vermi-Compost is produced through the natural process of vermiculture, where earthworms decompose organic waste materials into nutrient-rich compost. This process creates a superior organic fertilizer that is rich in essential nutrients, beneficial microorganisms, and enzymes that promote healthy plant growth and soil structure improvement.",
+      description: "Our Vermi Compost is produced through the natural process of vermiculture, where earthworms decompose organic waste materials into nutrient-rich compost. This creates a superior organic fertilizer rich in essential nutrients, beneficial microorganisms, and enzymes that promote healthy plant growth.",
       features: ["100% organic", "Rich in nutrients", "Improves soil structure", "Eco-friendly", "Slow release nutrients", "Contains beneficial microbes"],
-      specifications: {
-        "Organic Matter": "35-40%",
-        "Nitrogen": "1.5-2.0%",
-        "Phosphorus": "1.0-1.5%",
-        "Potassium": "1.0-1.5%",
-        "pH Level": "6.5-7.5",
-        "Moisture Content": "25-35%"
-      },
-      benefits: [
-        "Increases soil fertility naturally",
-        "Improves water retention capacity",
-        "Enhances root development",
-        "Boosts plant immunity",
-        "Reduces need for chemical fertilizers"
-      ],
-      usage: [
-        "Mix 1-2 kg per square meter of soil",
-        "Apply during soil preparation",
-        "Can be used for all types of crops",
-        "Suitable for organic farming"
-      ],
+      specifications: { "Organic Matter": "35-40%", "Nitrogen": "1.5-2.0%", "Phosphorus": "1.0-1.5%", "Potassium": "1.0-1.5%", "pH Level": "6.5-7.5", "Moisture Content": "25-35%" },
+      benefits: ["Increases soil fertility naturally", "Improves water retention capacity", "Enhances root development", "Boosts plant immunity", "Reduces need for chemical fertilizers"],
+      usage: ["Mix 1-2 kg per square meter of soil", "Apply during soil preparation", "Can be used for all types of crops", "Suitable for organic farming"],
       isPopular: true,
-      imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop&crop=center"
     },
     "cow-dung-compost": {
       id: "cow-dung-compost",
@@ -67,59 +48,20 @@ const ProductDetail = () => {
       short_description: "Traditional organic fertilizer made from well-decomposed cow dung, perfect for all crop types.",
       description: "Our Cow-Dung Compost is prepared using traditional composting methods with well-aged cow dung. This time-tested organic fertilizer provides slow-release nutrients and improves soil organic matter content, making it an excellent choice for sustainable agriculture.",
       features: ["Natural fertilizer", "Slow release nutrients", "Improves soil health", "Chemical-free", "Traditional method", "Rich in organic matter"],
-      specifications: {
-        "Organic Matter": "45-50%",
-        "Nitrogen": "0.8-1.2%",
-        "Phosphorus": "0.6-1.0%",
-        "Potassium": "0.8-1.2%",
-        "pH Level": "7.0-8.0",
-        "Moisture Content": "20-30%"
-      },
-      benefits: [
-        "Traditional and proven method",
-        "Improves soil structure",
-        "Adds beneficial microorganisms",
-        "Long-lasting soil improvement",
-        "Cost-effective solution"
-      ],
-      usage: [
-        "Apply 2-3 kg per square meter",
-        "Mix well with soil before planting",
-        "Ideal for vegetable gardens",
-        "Perfect for fruit trees"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1574924162449-3a5b88d6d47e?w=600&h=400&fit=crop&crop=center"
+      specifications: { "Organic Matter": "45-50%", "Nitrogen": "0.8-1.2%", "Phosphorus": "0.6-1.0%", "Potassium": "0.8-1.2%", "pH Level": "7.0-8.0", "Moisture Content": "20-30%" },
+      benefits: ["Traditional and proven method", "Improves soil structure", "Adds beneficial microorganisms", "Long-lasting soil improvement", "Cost-effective solution"],
+      usage: ["Apply 2-3 kg per square meter", "Mix well with soil before planting", "Ideal for vegetable gardens", "Perfect for fruit trees"],
     },
-    "organic-mix-fertilizer": {
-      id: "organic-mix-fertilizer",
-      name: "Organic Mix Fertilizer",
+    "coco-peat": {
+      id: "coco-peat",
+      name: "Coco Peat",
       category: "Organic Fertilizers",
-      short_description: "Balanced blend of organic materials providing complete nutrition for optimal plant development.",
-      description: "Our Organic Mix Fertilizer is a carefully balanced blend of various organic materials including compost, vermicompost, and natural minerals. This comprehensive fertilizer provides all essential nutrients needed for healthy plant growth while maintaining soil health.",
-      features: ["Complete nutrition", "Balanced NPK", "Organic blend", "Enhanced growth", "Soil conditioning", "Micronutrient rich"],
-      specifications: {
-        "Organic Matter": "40-45%",
-        "Nitrogen": "2.0-2.5%",
-        "Phosphorus": "1.5-2.0%",
-        "Potassium": "1.5-2.0%",
-        "pH Level": "6.5-7.0",
-        "Moisture Content": "25-30%"
-      },
-      benefits: [
-        "Complete plant nutrition",
-        "Balanced nutrient release",
-        "Improves soil fertility",
-        "Enhances plant resistance",
-        "Supports beneficial soil microbes"
-      ],
-      usage: [
-        "Apply 1.5-2 kg per square meter",
-        "Mix with soil during transplanting",
-        "Suitable for all crop types",
-        "Apply every 2-3 months"
-      ],
-      isPopular: true,
-      imageUrl: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=600&h=400&fit=crop&crop=center"
+      short_description: "Excellent growing medium with superior water retention and aeration properties.",
+      description: "Our Coco Peat is made from coconut coir fiber, providing an excellent growing medium that retains moisture while ensuring proper aeration. It's completely natural, renewable, and perfect for both indoor and outdoor gardening.",
+      features: ["Water retention", "Good drainage", "pH neutral", "Renewable resource", "Disease resistant", "Long lasting"],
+      specifications: { "pH Level": "5.5-6.5", "EC Value": "< 1.0 mS/cm", "Water Holding Capacity": "8-10 times its weight", "Expansion Ratio": "1:5 to 1:7", "Fiber Content": "15-20%", "Moisture Content": "15-20%" },
+      benefits: ["Excellent water retention", "Provides good drainage", "Lightweight growing medium", "Pest and disease resistant", "Sustainable and eco-friendly"],
+      usage: ["Soak in water before use", "Mix with soil 1:1 ratio", "Perfect for seed starting", "Ideal for container gardening"],
     },
     "neem-powder": {
       id: "neem-powder",
@@ -127,89 +69,10 @@ const ProductDetail = () => {
       category: "Organic Fertilizers",
       short_description: "Natural pest deterrent and soil conditioner made from pure neem leaves and bark.",
       description: "Our Neem Powder is made from pure neem leaves and bark, providing natural pest control properties while also acting as an excellent soil conditioner. It's completely organic and safe for all types of plants.",
-      features: ["Natural pesticide", "Soil conditioner", "Antimicrobial properties", "Safe for plants", "Organic pest control", "Soil health improver"],
-      specifications: {
-        "Azadirachtin Content": "300-500 ppm",
-        "Organic Matter": "85-90%",
-        "Nitrogen": "2.0-3.0%",
-        "pH Level": "6.0-7.0",
-        "Particle Size": "100-200 mesh",
-        "Moisture Content": "8-12%"
-      },
-      benefits: [
-        "Natural pest and disease control",
-        "Improves soil structure",
-        "Enhances plant immunity",
-        "Safe for beneficial insects",
-        "Environmentally friendly"
-      ],
-      usage: [
-        "Mix 50-100g per square meter",
-        "Apply monthly for pest control",
-        "Can be mixed with water for spray",
-        "Use as soil amendment"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1609501676725-7186f06ac4f0?w=600&h=400&fit=crop&crop=center"
-    },
-    "coco-peat": {
-      id: "coco-peat",
-      name: "Coco-Peat",
-      category: "Organic Fertilizers",
-      short_description: "Excellent growing medium with superior water retention and aeration properties.",
-      description: "Our Coco-Peat is made from coconut coir fiber, providing an excellent growing medium that retains moisture while ensuring proper aeration. It's completely natural, renewable, and perfect for both indoor and outdoor gardening.",
-      features: ["Water retention", "Good drainage", "pH neutral", "Renewable resource", "Disease resistant", "Long lasting"],
-      specifications: {
-        "pH Level": "5.5-6.5",
-        "EC Value": "< 1.0 mS/cm",
-        "Water Holding Capacity": "8-10 times its weight",
-        "Expansion Ratio": "1:5 to 1:7",
-        "Fiber Content": "15-20%",
-        "Moisture Content": "15-20%"
-      },
-      benefits: [
-        "Excellent water retention",
-        "Provides good drainage",
-        "Lightweight growing medium",
-        "Pest and disease resistant",
-        "Sustainable and eco-friendly"
-      ],
-      usage: [
-        "Soak in water before use",
-        "Mix with soil 1:1 ratio",
-        "Perfect for seed starting",
-        "Ideal for container gardening"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1583479648924-06e28d86b49e?w=600&h=400&fit=crop&crop=center"
-    },
-    "potting-mixture": {
-      id: "potting-mixture",
-      name: "Potting Mixture",
-      category: "Organic Fertilizers",
-      short_description: "Ready-to-use potting mix with perfect blend of organic materials for container gardening.",
-      description: "Our Ready-to-use Potting Mixture is a carefully formulated blend of organic compost, coco-peat, vermicompost, and essential nutrients. It's specifically designed for container gardening and potted plants.",
-      features: ["Ready to use", "Perfect blend", "Container friendly", "Nutrient rich", "Well-draining", "Organic certified"],
-      specifications: {
-        "Organic Matter": "55-60%",
-        "Nitrogen": "1.2-1.8%",
-        "Phosphorus": "0.8-1.2%",
-        "Potassium": "1.0-1.5%",
-        "pH Level": "6.0-7.0",
-        "Moisture Content": "25-35%"
-      },
-      benefits: [
-        "No mixing required",
-        "Perfect for container plants",
-        "Excellent drainage properties",
-        "Rich in organic nutrients",
-        "Promotes healthy root growth"
-      ],
-      usage: [
-        "Use directly from the bag",
-        "Fill containers and plant",
-        "Ideal for indoor plants",
-        "Perfect for balcony gardens"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=400&fit=crop&crop=center"
+      features: ["Natural pesticide", "Soil conditioner", "Antimicrobial", "Safe for plants", "Organic pest control", "Soil health improver"],
+      specifications: { "Azadirachtin Content": "300-500 ppm", "Organic Matter": "85-90%", "Nitrogen": "2.0-3.0%", "pH Level": "6.0-7.0", "Particle Size": "100-200 mesh", "Moisture Content": "8-12%" },
+      benefits: ["Natural pest and disease control", "Improves soil structure", "Enhances plant immunity", "Safe for beneficial insects", "Environmentally friendly"],
+      usage: ["Mix 50-100g per square meter", "Apply monthly for pest control", "Can be mixed with water for spray", "Use as soil amendment"],
     },
     "rice-husk": {
       id: "rice-husk",
@@ -218,244 +81,436 @@ const ProductDetail = () => {
       short_description: "Natural soil amendment that improves drainage and provides silica for stronger plants.",
       description: "Our Rice Husk is a natural byproduct of rice processing that serves as an excellent soil amendment. It improves soil drainage, provides silica for plant strength, and is completely organic and sustainable.",
       features: ["Improves drainage", "Rich in silica", "Lightweight", "Natural amendment", "Pest deterrent", "Long-lasting"],
-      specifications: {
-        "Silica Content": "18-20%",
-        "Carbon Content": "35-40%",
-        "Ash Content": "15-20%",
-        "Bulk Density": "100-150 kg/m³",
-        "pH Level": "6.0-7.0",
-        "Moisture Content": "8-12%"
-      },
-      benefits: [
-        "Improves soil aeration",
-        "Enhances drainage",
-        "Provides plant strength",
-        "Reduces soil compaction",
-        "Natural pest deterrent"
-      ],
-      usage: [
-        "Mix 10-20% with soil",
-        "Use as mulch layer",
-        "Add to compost pile",
-        "Mix with potting soil"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1574323359862-bc5bb2c31c4d?w=600&h=400&fit=crop&crop=center"
+      specifications: { "Silica Content": "18-20%", "Carbon Content": "35-40%", "Ash Content": "15-20%", "Bulk Density": "100-150 kg/m³", "pH Level": "6.0-7.0", "Moisture Content": "8-12%" },
+      benefits: ["Improves soil aeration", "Enhances drainage", "Provides plant strength", "Reduces soil compaction", "Natural pest deterrent"],
+      usage: ["Mix 10-20% with soil", "Use as mulch layer", "Add to compost pile", "Mix with potting soil"],
     },
-    "fish-meal-manure": {
-      id: "fish-meal-manure",
-      name: "Fish-Meal Manure",
+    "steam-bone-meal": {
+      id: "steam-bone-meal",
+      name: "Steam Bone Meal Granules",
       category: "Organic Fertilizers",
-      short_description: "High protein organic fertilizer providing essential amino acids and nutrients for plants.",
-      description: "Our Fish-Meal Manure is made from processed fish waste, providing high levels of nitrogen, phosphorus, and essential amino acids. It's an excellent organic fertilizer that promotes vigorous plant growth and improves soil biology.",
-      features: ["High protein", "Amino acids", "Slow release", "Marine nutrients", "Organic certified", "Soil biology enhancer"],
-      specifications: {
-        "Protein Content": "60-65%",
-        "Nitrogen": "8-10%",
-        "Phosphorus": "4-6%",
-        "Calcium": "5-7%",
-        "pH Level": "6.5-7.5",
-        "Moisture Content": "8-12%"
-      },
-      benefits: [
-        "High nutrient content",
-        "Provides essential amino acids",
-        "Improves plant vigor",
-        "Enhances soil microbiology",
-        "Long-lasting nutrition"
-      ],
-      usage: [
-        "Apply 100-200g per square meter",
-        "Mix with soil before planting",
-        "Apply 2-3 times per season",
-        "Ideal for flowering plants"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop&crop=center"
-    },
-    "goat-dung-manure": {
-      id: "goat-dung-manure",
-      name: "Goat Dung Manure",
-      category: "Organic Fertilizers",
-      short_description: "Premium organic manure with high nutrient content, ideal for vegetable and fruit cultivation.",
-      description: "Our Goat Dung Manure is collected from healthy goats and properly composted to create a premium organic fertilizer. It has higher nutrient content compared to other animal manures and is particularly effective for vegetable and fruit crops.",
-      features: ["High nutrients", "Quick acting", "Ideal for vegetables", "Organic matter", "Disease suppressing", "Soil conditioning"],
-      specifications: {
-        "Organic Matter": "50-55%",
-        "Nitrogen": "2.5-3.0%",
-        "Phosphorus": "1.5-2.0%",
-        "Potassium": "2.0-2.5%",
-        "pH Level": "7.0-8.0",
-        "Moisture Content": "25-30%"
-      },
-      benefits: [
-        "Higher nutrient density",
-        "Quick nutrient release",
-        "Excellent for vegetables",
-        "Improves soil structure",
-        "Natural disease suppression"
-      ],
-      usage: [
-        "Apply 1.5-2 kg per square meter",
-        "Mix well with soil",
-        "Perfect for kitchen gardens",
-        "Apply before planting season"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=600&h=400&fit=crop&crop=center"
-    },
-    "neem-oil": {
-      id: "neem-oil",
-      name: "Neem Oil",
-      category: "Organic Fertilizers",
-      short_description: "Pure neem oil extract for natural pest control and plant health management.",
-      description: "Our Pure Neem Oil is extracted from neem seeds using cold-pressed methods. It's a natural bio-pesticide and plant health enhancer that provides effective pest control while being safe for beneficial insects and the environment.",
-      features: ["Natural pest control", "Plant health", "Pure extract", "Multi-purpose", "Systemic action", "Organic certified"],
-      specifications: {
-        "Azadirachtin Content": "1500-3000 ppm",
-        "Nimbin Content": "2000-4000 ppm",
-        "Purity": "99%+",
-        "Specific Gravity": "0.915-0.925",
-        "Acid Value": "< 10 mg KOH/g",
-        "Shelf Life": "2 years"
-      },
-      benefits: [
-        "Effective pest control",
-        "Safe for beneficial insects",
-        "Improves plant immunity",
-        "Systemic plant protection",
-        "Environmentally safe"
-      ],
-      usage: [
-        "Dilute 5-10ml per liter water",
-        "Spray early morning or evening",
-        "Apply every 7-10 days",
-        "Use as soil drench for systemic action"
-      ],
+      short_description: "High phosphorus organic fertilizer from steam-processed animal bones for root and flower development.",
+      description: "Our Steam Bone Meal Granules are produced from animal bones processed under high-pressure steam to create a slow-release phosphorus fertilizer. Ideal for root development, flowering, and fruiting, this product provides essential calcium and phosphorus for healthy plant growth.",
+      features: ["High phosphorus", "Slow release", "Root development", "Organic certified", "Granule form", "Rich in calcium"],
+      specifications: { "Phosphorus (P2O5)": "20-24%", "Calcium": "28-32%", "Nitrogen": "3-4%", "Granule Size": "1-4 mm", "pH Level": "6.5-7.5", "Moisture Content": "< 5%" },
+      benefits: ["Promotes strong root growth", "Enhances flowering and fruiting", "Provides long-lasting phosphorus", "Improves calcium availability", "Organic and chemical-free"],
+      usage: ["Apply 200-400g per square meter", "Mix into soil before planting", "Ideal for bulbs, tubers, and root crops", "Apply once per growing season"],
       isPopular: true,
-      imageUrl: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&h=400&fit=crop&crop=center"
     },
 
-    // Sustainable Packaging Materials
-    "compostable-bioplastics": {
-      id: "compostable-bioplastics",
-      name: "100% Compostable Bioplastics (CPCB Certified)",
-      category: "Sustainable Packaging",
-      short_description: "Certified compostable bioplastic packaging solutions that break down naturally in composting conditions.",
-      description: "Our CPCB certified compostable bioplastics are made from renewable plant-based materials including corn starch, sugarcane bagasse, and other biodegradable polymers. These innovative packaging solutions break down completely in industrial and home composting conditions, leaving no harmful residues.",
-      features: ["CPCB Certified", "100% compostable", "Eco-friendly", "Biodegradable", "Plant-based", "Zero toxic residue"],
-      specifications: {
-        "Certification": "CPCB Approved, EN 13432, ASTM D6400",
-        "Composting Time": "90-180 days",
-        "Raw Material": "Plant-based polymers (PLA, PHA, PBAT)",
-        "Temperature Resistance": "-20°C to +60°C",
-        "Thickness Range": "10-100 microns",
-        "Tensile Strength": "20-40 MPa"
-      },
-      benefits: [
-        "Certified environmental safety",
-        "Complete biodegradation",
-        "Reduces plastic pollution",
-        "Supports circular economy",
-        "Carbon footprint reduction"
-      ],
-      usage: [
-        "Food packaging applications",
-        "Agricultural mulch films",
-        "Shopping bags and carriers",
-        "Industrial packaging solutions"
-      ],
+    // ── Compostable Bioplastics ──
+    "compostable-dcut-bags": {
+      id: "compostable-dcut-bags",
+      name: "Compostable D-Cut Carry Bags",
+      category: "Compostable Bioplastics",
+      short_description: "CPCB certified D-cut carry bags made from compostable bioplastic, ideal for retail and grocery stores.",
+      description: "Our Compostable D-Cut Carry Bags are manufactured from plant-based biopolymers and are fully CPCB certified. The D-cut handle design provides comfortable carrying and these bags decompose completely within composting conditions, leaving zero toxic residue.",
+      features: ["CPCB Certified", "100% compostable", "D-cut design", "Retail ready", "Plant-based", "Zero toxic residue"],
+      specifications: { "Certification": "CPCB Approved", "Material": "PLA / PBAT blend", "Thickness": "20-50 microns", "Composting Time": "90-180 days", "Sizes": "Small / Medium / Large", "Min. Order": "10,000 pcs" },
+      benefits: ["Replaces single-use plastic bags", "Certified compostable", "Excellent print quality", "Strong and tear resistant", "Reduces carbon footprint"],
+      usage: ["Retail checkout counter", "Grocery stores", "General shopping", "Takeaway packaging"],
       isPopular: true,
-      imageUrl: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&h=400&fit=crop&crop=center"
     },
-    "bagasse-packaging": {
-      id: "bagasse-packaging",
-      name: "Bagasse Packaging Material",
-      category: "Sustainable Packaging",
-      short_description: "Sustainable packaging made from sugarcane bagasse, a renewable agricultural waste product.",
-      description: "Our Bagasse Packaging is made from sugarcane bagasse, the fibrous pulp that remains after extracting juice from sugarcane. This agricultural waste is transformed into strong, biodegradable packaging materials that are perfect for food service and retail applications.",
-      features: ["Made from bagasse", "Renewable source", "Compostable", "Strong & durable", "Food safe", "Heat resistant"],
-      specifications: {
-        "Raw Material": "100% Sugarcane Bagasse",
-        "Density": "0.2-0.3 g/cm³",
-        "Temperature Resistance": "-20°C to +100°C",
-        "Moisture Resistance": "Good for 4-6 hours",
-        "Biodegradation Time": "30-60 days",
-        "Microwave Safe": "Yes"
-      },
-      benefits: [
-        "Utilizes agricultural waste",
-        "Fully biodegradable",
-        "Strong and durable",
-        "Microwave and freezer safe",
-        "Chemical-free production"
-      ],
-      usage: [
-        "Food containers and plates",
-        "Takeaway packaging",
-        "Disposable tableware",
-        "Retail packaging solutions"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1586281010293-7c8005b2e3e7?w=600&h=400&fit=crop&crop=center"
+    "compostable-wcut-bags": {
+      id: "compostable-wcut-bags",
+      name: "Compostable W-Cut Carry Bags",
+      category: "Compostable Bioplastics",
+      short_description: "W-cut compostable carry bags offering enhanced strength and wider opening for easy packing.",
+      description: "Our W-Cut Carry Bags feature a wider opening and flat bottom for easy packing. Made from compostable bioplastic resins, they offer excellent load-bearing capacity while being fully biodegradable in composting conditions.",
+      features: ["W-cut design", "Enhanced strength", "Compostable", "Eco-friendly", "Wide opening", "Flat bottom"],
+      specifications: { "Certification": "CPCB / EN 13432", "Material": "PLA / PBAT blend", "Thickness": "25-60 microns", "Composting Time": "90-180 days", "Sizes": "Multiple options", "Weight Capacity": "Up to 8 kg" },
+      benefits: ["Wider opening for easy loading", "Flat bottom stands upright", "Fully compostable", "Excellent tensile strength", "Suitable for heavy items"],
+      usage: ["Supermarket packing", "Vegetable and fruit stores", "Bakery and deli shops", "General retail"],
     },
-    "paper-packaging": {
-      id: "paper-packaging",
-      name: "Paper Packaging Material",
-      category: "Sustainable Packaging",
-      short_description: "Recyclable and biodegradable paper-based packaging solutions for various applications.",
-      description: "Our Paper Packaging Materials are made from sustainably sourced paper and cardboard. These recyclable and biodegradable solutions offer excellent protection for products while being environmentally responsible and cost-effective.",
-      features: ["Recyclable", "Biodegradable", "Versatile", "Sustainable", "Cost-effective", "Customizable"],
-      specifications: {
-        "Paper Grade": "FSC Certified",
-        "GSM Range": "150-400 GSM",
-        "Biodegradation Time": "2-6 months",
-        "Recycling Rate": "85-90%",
-        "Moisture Resistance": "Basic coating available",
-        "Print Quality": "High-quality offset printing"
-      },
-      benefits: [
-        "Widely recyclable",
-        "Fast biodegradation",
-        "Cost-effective solution",
-        "Excellent printability",
-        "Consumer preferred"
-      ],
-      usage: [
-        "Shipping boxes and mailers",
-        "Product packaging",
-        "Gift wrapping solutions",
-        "Promotional materials"
-      ],
-      imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop&crop=center"
+    "compostable-garbage-bags": {
+      id: "compostable-garbage-bags",
+      name: "Compostable Garbage Bags",
+      category: "Compostable Bioplastics",
+      short_description: "Biodegradable garbage bags that break down naturally, perfect for responsible waste management.",
+      description: "Our Compostable Garbage Bags are designed for responsible waste disposal. Made from plant-based bioplastics, they break down completely in industrial and home composting environments, making them perfect for organic waste collection.",
+      features: ["Biodegradable", "Leak-proof", "Multiple sizes", "Home compostable", "Strong seals", "Odor control"],
+      specifications: { "Material": "Cornstarch / PBAT", "Thickness": "15-30 microns", "Sizes": "Small / Medium / Large / XL", "Composting Time": "90-180 days", "Color": "Green / Black", "Packing": "Roll of 15/30 bags" },
+      benefits: ["Eliminates plastic waste", "Suitable for wet waste", "Home and industrial compostable", "Strong enough for daily use", "Supports segregation practices"],
+      usage: ["Kitchen wet waste collection", "Garden waste disposal", "Office waste management", "Municipal composting programs"],
     },
-    "cotton-jute-canvas-bags": {
-      id: "cotton-jute-canvas-bags",
-      name: "Cotton, Jute & Canvas Bags",
-      category: "Sustainable Packaging",
-      short_description: "Reusable bags made from natural fibers, perfect alternative to plastic bags.",
-      description: "Our collection of Cotton, Jute, and Canvas Bags provides durable, reusable alternatives to single-use plastic bags. Made from natural fibers, these bags are strong, washable, and can be used hundreds of times, making them perfect for shopping, storage, and promotional purposes.",
-      features: ["Reusable", "Natural fibers", "Durable", "Plastic alternative", "Washable", "Customizable"],
-      specifications: {
-        "Material Options": "100% Cotton, Jute, Canvas",
-        "Weight Capacity": "5-25 kg depending on size",
-        "Handle Options": "Short, Long, or Reinforced handles",
-        "Sizes Available": "Small to XXL",
-        "Printing Options": "Screen print, Digital print, Embroidery",
-        "Color Options": "Natural and custom colors"
-      },
-      benefits: [
-        "Hundreds of uses per bag",
-        "Strong and durable",
-        "Machine washable",
-        "Biodegradable at end of life",
-        "Great for branding"
-      ],
-      usage: [
-        "Shopping bags",
-        "Promotional merchandise",
-        "Gift bags",
-        "Storage solutions"
-      ],
+    "compostable-garment-bags": {
+      id: "compostable-garment-bags",
+      name: "Compostable Garment Bags",
+      category: "Compostable Bioplastics",
+      short_description: "Transparent compostable garment covers for fashion and textile packaging needs.",
+      description: "Our Compostable Garment Bags provide a sustainable alternative to polybags used in the fashion industry. Transparent and smooth, they protect garments during transit and storage while being fully compostable at end of life.",
+      features: ["Transparent", "Garment safe", "Compostable", "Dust protection", "Smooth finish", "Custom sizes"],
+      specifications: { "Material": "PLA film", "Transparency": "High clarity", "Thickness": "20-40 microns", "Composting Time": "90-120 days", "Sizes": "Custom to garment", "Sealing": "Self-adhesive strip" },
+      benefits: ["Protects garments from dust", "High clarity display", "Sustainable brand image", "Fully compostable", "Custom branding available"],
+      usage: ["Apparel packaging", "Textile shipping", "Wardrobe storage", "Retail garment display"],
+    },
+    "compostable-grocery-rolls": {
+      id: "compostable-grocery-rolls",
+      name: "Compostable Grocery Rolls",
+      category: "Compostable Bioplastics",
+      short_description: "Roll-format compostable bags for grocery stores, supermarkets, and food packaging.",
+      description: "Our Compostable Grocery Rolls provide a convenient tear-off bag solution for produce sections and food counters. Each bag is made from plant-based material and will fully compost, reducing plastic waste in the food supply chain.",
+      features: ["Roll format", "Easy tear", "Food safe", "Compostable", "Perforated", "Lightweight"],
+      specifications: { "Material": "PLA / PBAT", "Bags per Roll": "200-500", "Thickness": "10-20 microns", "Composting Time": "90-180 days", "Core Diameter": "76 mm", "Food Contact": "Yes" },
+      benefits: ["Convenient roll dispenser format", "Easy tear perforations", "Food contact approved", "Reduces plastic use at checkout", "Compatible with existing dispensers"],
+      usage: ["Supermarket produce section", "Bakery counters", "Deli and meat counters", "Bulk food stores"],
+    },
+    "compostable-shrink-film": {
+      id: "compostable-shrink-film",
+      name: "Compostable Shrink Film",
+      category: "Compostable Bioplastics",
+      short_description: "Eco-friendly shrink wrap film that fully composts, replacing traditional plastic shrink wrap.",
+      description: "Our Compostable Shrink Film is a drop-in replacement for conventional PVC and polyolefin shrink wrap. It shrinks cleanly when heated, conforms tightly to products, and fully biodegrades in composting conditions.",
+      features: ["Shrink wrap", "Compostable", "Clear finish", "Industrial use", "Heat shrink", "Tamper evident"],
+      specifications: { "Material": "PLA blend film", "Shrink Ratio": "40-60%", "Thickness": "15-40 microns", "Composting Time": "120-180 days", "Heat Range": "80-120°C", "Clarity": "High gloss" },
+      benefits: ["Direct replacement for plastic shrink wrap", "Clean shrink finish", "Fully compostable end of life", "High clarity and gloss", "Tamper-evident seal"],
+      usage: ["Product bundling", "Bottle and can multipacks", "Gift basket wrapping", "Industrial pallet wrap"],
+    },
+
+    // ── Plant Based ──
+    "areca-palm-tableware": {
+      id: "areca-palm-tableware",
+      name: "Areca Palm Tableware",
+      category: "Plant Based",
+      short_description: "Natural tableware made from fallen areca palm leaves — sturdy, elegant, and fully biodegradable.",
+      description: "Our Areca Palm Tableware is crafted from naturally fallen areca palm leaves. Each piece is heat-pressed into plates, bowls, and trays without any chemicals or additives. Sturdy enough for hot and cold foods, they add an elegant, rustic appeal to any dining setting.",
+      features: ["100% natural", "Biodegradable", "Microwave safe", "Chemical-free", "Leak-proof", "Elegant finish"],
+      specifications: { "Material": "Areca palm leaf", "Shapes": "Plates / Bowls / Trays", "Sizes": "4\" to 12\"", "Temperature": "-20°C to +180°C", "Decomposition": "45-60 days", "Chemical Free": "Yes" },
+      benefits: ["Zero chemicals or coatings", "Handles hot and oily foods", "Unique natural appearance", "Compostable within 60 days", "Supports rural livelihoods"],
+      usage: ["Catering and events", "Restaurants and cafés", "Picnics and outdoor dining", "Eco-conscious food service"],
       isPopular: true,
-      imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop&crop=center"
-    }
+    },
+    "bagasse-tableware": {
+      id: "bagasse-tableware",
+      name: "Bagasse Tableware",
+      category: "Plant Based",
+      short_description: "Sugarcane bagasse plates, bowls, and containers — strong, compostable, and food safe.",
+      description: "Our Bagasse Tableware is made from sugarcane fiber remaining after juice extraction. Molded under heat and pressure, these products are strong, waterproof, and suitable for both hot and cold foods. They fully compost within weeks.",
+      features: ["Sugarcane fiber", "Compostable", "Oil resistant", "Microwave safe", "Waterproof", "Stackable"],
+      specifications: { "Material": "Sugarcane bagasse", "Products": "Plates / Bowls / Containers / Trays", "Sizes": "6\" to 12\"", "Temperature": "-20°C to +120°C", "Decomposition": "30-60 days", "Microwave Safe": "Yes" },
+      benefits: ["Uses agricultural waste", "Oil and water resistant", "Microwave and freezer safe", "Fully compostable", "Strong and sturdy"],
+      usage: ["Food takeaway containers", "Event and party supplies", "Corporate catering", "Quick-service restaurants"],
+    },
+    "bamboo-products": {
+      id: "bamboo-products",
+      name: "Bamboo Products",
+      category: "Plant Based",
+      short_description: "Sustainable bamboo-based products including cutlery, straws, and kitchen essentials.",
+      description: "Our Bamboo Products range includes cutlery sets, straws, toothbrushes, and kitchen essentials. Bamboo grows rapidly without pesticides, making it one of the most sustainable materials available. Each product is durable, reusable, and naturally antibacterial.",
+      features: ["Bamboo material", "Reusable", "Biodegradable", "Antibacterial", "Durable", "Chemical-free"],
+      specifications: { "Material": "Moso bamboo", "Products": "Cutlery / Straws / Brushes / Skewers", "Treatment": "Carbonized / Natural", "Durability": "Reusable 100+ times", "Finish": "Smooth sanded", "Packaging": "Plastic-free" },
+      benefits: ["Rapidly renewable resource", "Naturally antibacterial", "Reusable many times", "Decomposes naturally", "Lightweight and strong"],
+      usage: ["Restaurant and café use", "Travel cutlery kits", "Kitchen essentials", "Hospitality amenities"],
+    },
+    "kraft-paper-products": {
+      id: "kraft-paper-products",
+      name: "Kraft Paper Products",
+      category: "Plant Based",
+      short_description: "Recyclable kraft paper packaging, bags, and food containers for eco-conscious businesses.",
+      description: "Our Kraft Paper Products include bags, food containers, wrapping paper, and custom packaging. Made from sustainably sourced kraft paper, they are recyclable, biodegradable, and offer excellent printability for branding.",
+      features: ["Recyclable", "Biodegradable", "Grease resistant", "Customizable", "FSC certified", "Food safe"],
+      specifications: { "Material": "FSC kraft paper", "GSM Range": "80-350", "Products": "Bags / Boxes / Wraps / Containers", "Coating": "Grease-resistant options", "Printing": "Flexo / Offset", "Customization": "Size, print, finish" },
+      benefits: ["Widely recyclable", "Biodegrades quickly", "Good print surface", "Cost-effective", "Consumer-preferred packaging"],
+      usage: ["Food delivery packaging", "Retail shopping bags", "Gift wrapping", "Product packaging and boxes"],
+    },
+
+    // ── 100% Cotton Towels ──
+    "bath-towels": {
+      id: "bath-towels",
+      name: "Bath Towels",
+      category: "100% Cotton Towels",
+      short_description: "Premium 100% cotton bath towels with superior absorbency and luxurious softness.",
+      description: "Our Bath Towels are woven from 100% premium long-staple cotton fibers, providing exceptional absorbency, softness, and durability. Available in a range of weights and colors, they are suitable for hospitality, retail, and personal use.",
+      features: ["100% cotton", "Highly absorbent", "Soft texture", "Durable", "Multiple colors", "Combed cotton"],
+      specifications: { "Material": "100% cotton", "GSM": "400-700", "Size": "70×140 cm / 76×152 cm", "Colors": "White and custom colors", "Weave": "Terry / Dobby border", "Packing": "Bulk / Sets" },
+      benefits: ["Luxurious softness", "Quick moisture absorption", "Withstands industrial laundering", "Retains shape after washing", "Skin-friendly and hypoallergenic"],
+      usage: ["Hotels and resorts", "Home use", "Retail and gifting", "Hospitality bulk orders"],
+      isPopular: true,
+    },
+    "hand-face-spa-towels": {
+      id: "hand-face-spa-towels",
+      name: "Hand / Face / Spa Towels",
+      category: "100% Cotton Towels",
+      short_description: "Soft cotton towels sized for hand, face, and spa use — ideal for hospitality and wellness.",
+      description: "Our Hand, Face, and Spa Towels are crafted from fine 100% cotton in compact sizes ideal for guest bathrooms, spa treatments, and salon use. Ultra-soft and lint-free, they provide a premium touch across hospitality environments.",
+      features: ["Compact size", "Ultra soft", "Quick dry", "Lint-free", "Spa grade", "Multiple colors"],
+      specifications: { "Material": "100% cotton", "GSM": "300-500", "Sizes": "30×50 / 40×70 / 50×100 cm", "Colors": "White and pastels", "Weave": "Terry / Waffle", "Packing": "Dozen / Bulk" },
+      benefits: ["Ideal spa and salon quality", "Quick-drying fabric", "Lint-free experience", "Gentle on skin", "Easy to launder"],
+      usage: ["Spas and wellness centers", "Hotel guest bathrooms", "Salons and barbershops", "Personal care kits"],
+    },
+    "pool-towels": {
+      id: "pool-towels",
+      name: "Pool Towels",
+      category: "100% Cotton Towels",
+      short_description: "Large, quick-drying cotton pool towels with vibrant colors and chlorine-resistant fabric.",
+      description: "Our Pool Towels are oversized 100% cotton towels designed for poolside use. Treated for chlorine resistance and color fastness, they maintain vibrant colors and softness even after repeated washing and sun exposure.",
+      features: ["Oversized", "Quick dry", "Chlorine resistant", "Fade resistant", "Vibrant colors", "Durable"],
+      specifications: { "Material": "100% cotton", "GSM": "350-500", "Size": "80×160 cm / 90×180 cm", "Treatment": "Chlorine-resistant dye", "Colors": "Bright stripes and solids", "Packing": "Bulk" },
+      benefits: ["Withstands chlorine exposure", "Fade-resistant colors", "Quick absorption and drying", "Oversized for full coverage", "Low-lint construction"],
+      usage: ["Hotels and resorts", "Swimming clubs", "Beach clubs", "Residential pools"],
+    },
+    "salon-towels": {
+      id: "salon-towels",
+      name: "Salon Towels",
+      category: "100% Cotton Towels",
+      short_description: "Bleach-safe cotton towels designed for salon and barbershop daily use.",
+      description: "Our Salon Towels are built to withstand daily bleach use and frequent washings. Lightweight yet absorbent, they come in dark and bleach-proof colors suitable for hair salons, barbershops, and beauty parlors.",
+      features: ["Bleach safe", "Color fast", "Lightweight", "Economical", "Quick dry", "Bulk packs"],
+      specifications: { "Material": "100% cotton / cotton-poly blend", "GSM": "250-400", "Size": "40×70 cm", "Colors": "Black, white, dark tones", "Treatment": "Bleach-resistant dye", "Packing": "Dozen / Bulk" },
+      benefits: ["Withstands bleach and chemicals", "Retains color after many washes", "Lightweight and easy to fold", "Economical bulk pricing", "Quick-drying design"],
+      usage: ["Hair salons", "Barbershops", "Beauty parlors", "Nail and spa studios"],
+    },
+    "hotel-towels": {
+      id: "hotel-towels",
+      name: "Hotel Towels",
+      category: "100% Cotton Towels",
+      short_description: "Luxury hotel-grade cotton towels with reinforced edges for commercial laundering.",
+      description: "Our Hotel Towels are manufactured to hospitality-grade standards with double-stitched hems and reinforced edges. Available in classic white and neutral tones, they deliver a five-star guest experience while surviving thousands of commercial laundry cycles.",
+      features: ["Hotel grade", "Reinforced edges", "Premium cotton", "Long lasting", "Commercial wash rated", "Classic white"],
+      specifications: { "Material": "100% ring-spun cotton", "GSM": "500-700", "Sizes": "Bath / Hand / Face sets", "Color": "White / Ivory", "Hem": "Double-stitched dobby", "Packing": "Sets / Bulk" },
+      benefits: ["Commercial laundry durable", "Consistently soft hand-feel", "Classic hotel aesthetic", "Sets available (bath/hand/face)", "Eco-friendly manufacturing"],
+      usage: ["Hotels and resorts", "Serviced apartments", "Cruise lines", "Hospitality supply chains"],
+    },
+
+    // ── Jute Bags ──
+    "jute-different-size-bags": {
+      id: "jute-different-size-bags",
+      name: "Different Size Jute Bags",
+      category: "Jute Bags",
+      short_description: "Jute bags available in multiple sizes for shopping, gifting, and promotional use.",
+      description: "Our Different Size Jute Bags come in a wide range — from small gift pouches to large shopping carriers. Made from 100% natural jute fiber, each size is stitched with reinforced handles and can be customized with prints or labels.",
+      features: ["Multiple sizes", "Eco-friendly", "Sturdy handles", "Reusable", "Customizable", "Natural jute"],
+      specifications: { "Material": "100% jute", "Sizes": "Small (20×15) to XL (45×35×15 cm)", "Handle": "Self-handle / Rope / Cotton tape", "Lining": "Optional lamination", "Printing": "Screen / Jute print", "MOQ": "500 pcs" },
+      benefits: ["Size for every need", "Strong and tear resistant", "Fully biodegradable", "Good branding surface", "Reusable hundreds of times"],
+      usage: ["Shopping bags", "Corporate gifts", "Promotional giveaways", "Retail packaging"],
+      isPopular: true,
+    },
+    "jute-regular-bag": {
+      id: "jute-regular-bag",
+      name: "Regular Jute Bag",
+      category: "Jute Bags",
+      short_description: "Classic regular jute shopping bag — simple, strong, and sustainable.",
+      description: "The Regular Jute Bag is a classic all-purpose carrier made from natural jute hessian. With a simple, functional design this bag is a staple for daily shopping and promotional purposes.",
+      features: ["Classic design", "Strong build", "Sustainable", "Affordable", "Sturdy base", "Reinforced handle"],
+      specifications: { "Material": "Jute hessian", "Size": "35×40×15 cm (standard)", "Handle": "Self-jute flat handle", "Weight Capacity": "8-10 kg", "Lamination": "Optional inner", "MOQ": "500 pcs" },
+      benefits: ["Everyday use bag", "Strong natural fiber", "Biodegradable", "Great for branding", "Economical pricing"],
+      usage: ["Daily shopping", "Grocery runs", "Exhibition bags", "Promotional handouts"],
+    },
+    "jute-bottle-bags": {
+      id: "jute-bottle-bags",
+      name: "Jute Bottle Bags",
+      category: "Jute Bags",
+      short_description: "Specially designed jute bags for carrying bottles safely — perfect for wine and beverages.",
+      description: "Our Jute Bottle Bags are designed with single and multi-bottle compartments for safe transport. Padded options are available for wine and spirits. Strong dividers and a sturdy base keep bottles secure.",
+      features: ["Bottle fit", "Padded option", "Gift ready", "Reusable", "Divider options", "Strong base"],
+      specifications: { "Material": "Jute fiber", "Variants": "1-bottle / 2-bottle / 4-bottle", "Padding": "Optional foam insert", "Handle": "Rope / Cotton", "Base": "Reinforced cardboard", "MOQ": "300 pcs" },
+      benefits: ["Safe bottle transport", "Premium gift appearance", "Reusable many times", "Custom branding", "Eco-friendly alternative to paper wine bags"],
+      usage: ["Wine and spirits stores", "Corporate gifting", "Wedding favors", "Retail beverage packaging"],
+    },
+    "jute-flap-bag": {
+      id: "jute-flap-bag",
+      name: "Jute Flap Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a stylish flap closure for secure and elegant carrying.",
+      description: "Our Jute Flap Bag features a fold-over flap with button or magnetic closure, combining security with style. Ideal for files, iPads, documents, and everyday carry.",
+      features: ["Flap closure", "Secure", "Stylish", "Durable", "Magnetic clasp", "Inner pocket"],
+      specifications: { "Material": "Jute with cotton lining", "Closure": "Magnetic / Button flap", "Size": "30×35 cm (standard)", "Pocket": "Inner slip pocket", "Handle": "Shoulder strap", "MOQ": "300 pcs" },
+      benefits: ["Contents stay secure", "Elegant professional look", "Suitable for files and devices", "Customize with logo", "Reusable and biodegradable"],
+      usage: ["Corporate gifting", "Conference bags", "Document carriers", "Fashion accessory"],
+    },
+    "jute-plain-carry-bag": {
+      id: "jute-plain-carry-bag",
+      name: "Jute Plain Carry Bag",
+      category: "Jute Bags",
+      short_description: "Plain jute carry bag — lightweight, printable, and ideal for branding.",
+      description: "The Jute Plain Carry Bag is a blank-canvas jute bag ready for your brand's identity. Lightweight yet strong, it is the most popular style for promotional activities and retail handouts.",
+      features: ["Printable", "Lightweight", "Carry handles", "Brandable", "Flat fold", "Cost-effective"],
+      specifications: { "Material": "Natural jute", "Size": "Custom sizes available", "Handle": "Self-jute / Cotton tape", "Print Area": "Full front and back", "Lamination": "Optional", "MOQ": "500 pcs" },
+      benefits: ["Large print area for branding", "Affordable per-unit cost", "Lightweight for events", "Flat-fold for shipping", "Sustainable material"],
+      usage: ["Exhibition giveaways", "Retail bags", "Brand awareness campaigns", "Eco-friendly packaging"],
+    },
+    "jute-plain-pouch-bag": {
+      id: "jute-plain-pouch-bag",
+      name: "Jute Plain Pouch Bag",
+      category: "Jute Bags",
+      short_description: "Compact jute pouch bag for small items, cosmetics, and gifts.",
+      description: "Our Jute Plain Pouch Bag is a compact drawstring pouch made from natural jute. Perfect for packaging small gifts, cosmetics, jewelry, and dry foods. Can be customized with prints or tags.",
+      features: ["Compact", "Drawstring", "Gift use", "Natural jute", "Printable", "Eco-friendly"],
+      specifications: { "Material": "Natural jute", "Sizes": "10×15 to 25×30 cm", "Closure": "Drawstring / Velcro", "Lining": "Optional cotton", "Print": "Screen print / Tag", "MOQ": "500 pcs" },
+      benefits: ["Charming rustic look", "Ideal for small gifts", "Reusable pouch", "Low-cost branding option", "Biodegradable"],
+      usage: ["Wedding favors", "Cosmetic packaging", "Jewelry pouches", "Dry food packaging"],
+    },
+    "jute-plain-tote-bags": {
+      id: "jute-plain-tote-bags",
+      name: "Jute Plain Tote Bags",
+      category: "Jute Bags",
+      short_description: "Spacious jute tote bags with flat bottom — perfect for everyday shopping.",
+      description: "Our Jute Plain Tote Bags feature a wide flat bottom and reinforced stitching for heavy loads. The open-top tote design makes them ideal for everyday grocery shopping and retail use.",
+      features: ["Tote style", "Flat bottom", "Spacious", "Everyday use", "Strong stitching", "Open top"],
+      specifications: { "Material": "Jute fabric", "Size": "35×40×15 cm (standard)", "Handle": "Cotton / Self-jute", "Capacity": "10-12 kg", "Base": "Reinforced flat bottom", "MOQ": "500 pcs" },
+      benefits: ["Stands upright when filled", "Spacious for groceries", "Strong construction", "Easy to carry", "Printable surface"],
+      usage: ["Grocery shopping", "Farmers markets", "Retail tote bags", "Everyday carry"],
+    },
+    "jute-pouch-bags": {
+      id: "jute-pouch-bags",
+      name: "Jute Pouch Bags",
+      category: "Jute Bags",
+      short_description: "Small jute pouch bags ideal for packaging, return gifts, and accessories.",
+      description: "Our Jute Pouch Bags are small-format bags ideal for return gifts, accessory packaging, and dry food items. Available with drawstring, button, or plain open-top closures.",
+      features: ["Pouch style", "Gift packaging", "Compact", "Versatile", "Multiple closures", "Natural look"],
+      specifications: { "Material": "Natural jute", "Sizes": "12×15 to 20×25 cm", "Closure": "Drawstring / Button / Open", "Lining": "Optional", "Customization": "Print / Embroidery", "MOQ": "500 pcs" },
+      benefits: ["Perfect for return gifts", "Unique natural texture", "Lightweight and compact", "Cost-effective packaging", "Custom branding options"],
+      usage: ["Return gifts", "Accessory packaging", "Dry fruit packaging", "Event giveaways"],
+    },
+    "jute-zipper-bag": {
+      id: "jute-zipper-bag",
+      name: "Jute Zipper Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a zip closure for added security — great for documents and valuables.",
+      description: "Our Jute Zipper Bag features a full-length zipper for content security. Lined with cotton or laminated inside, it is ideal for carrying documents, laptops, and valuables with a sustainable style.",
+      features: ["Zip closure", "Secure", "Professional look", "Durable", "Lined interior", "Versatile"],
+      specifications: { "Material": "Jute with cotton lining", "Closure": "Full-length zipper", "Sizes": "A4 / A3 / Custom", "Interior": "Laminated / Cotton lined", "Handle": "Short / Shoulder", "MOQ": "300 pcs" },
+      benefits: ["Contents stay secure", "Professional appearance", "Protects documents", "Reusable and sustainable", "Custom sizes available"],
+      usage: ["Document folders", "Laptop sleeves", "Conference carry bags", "Secure shopping bags"],
+    },
+    "jute-window-bag": {
+      id: "jute-window-bag",
+      name: "Jute Window Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a transparent window for product visibility — ideal for retail display.",
+      description: "Our Jute Window Bag features a clear PVC or PLA window that lets buyers see the product inside without opening the bag. Perfect for food products, gift hampers, and retail displays.",
+      features: ["Window panel", "Product display", "Retail ready", "Attractive", "Clear window", "Custom shapes"],
+      specifications: { "Material": "Jute with PVC/PLA window", "Window": "Clear panel (various shapes)", "Sizes": "Custom available", "Handle": "Rope / Cotton tape", "Closure": "Drawstring / Zip / Open", "MOQ": "300 pcs" },
+      benefits: ["Product visible without opening", "Attractive shelf presence", "Premium gift packaging", "Reusable by customer", "Natural and sustainable"],
+      usage: ["Gift hampers", "Dry food packaging", "Retail shelf display", "Festive gift bags"],
+    },
+
+    // ── Cotton Bags ──
+    "brown-drawstring-cotton-bag": {
+      id: "brown-drawstring-cotton-bag",
+      name: "Brown Drawstring Cotton Bag",
+      category: "Cotton Bags",
+      short_description: "Natural brown cotton drawstring bag — versatile for packaging, gifting, and storage.",
+      description: "Our Brown Drawstring Cotton Bag is made from natural unbleached cotton in a warm brown tone. The drawstring closure makes it versatile for jewelry, cosmetics, dry foods, and return gift packaging.",
+      features: ["Drawstring closure", "Brown cotton", "Versatile", "Eco-friendly", "Unbleached", "Washable"],
+      specifications: { "Material": "100% unbleached cotton", "Color": "Natural brown", "Sizes": "10×15 to 30×40 cm", "Closure": "Cotton drawstring", "GSM": "140-200", "MOQ": "500 pcs" },
+      benefits: ["Natural un-dyed color", "Reusable many times", "Washable and durable", "Biodegradable", "Economical for bulk orders"],
+      usage: ["Gift packaging", "Jewelry pouches", "Dry food bags", "Storage and travel pouches"],
+    },
+    "cotton-loop-handle-bag": {
+      id: "cotton-loop-handle-bag",
+      name: "Cotton Loop Handle Bag",
+      category: "Cotton Bags",
+      short_description: "Sturdy cotton bag with loop handles for comfortable carrying and daily shopping.",
+      description: "Our Cotton Loop Handle Bag features reinforced loop handles for easy carrying. Made from durable cotton canvas, it is well suited for grocery shopping, retail, and everyday errands.",
+      features: ["Loop handles", "Sturdy build", "Comfortable carry", "Reusable", "Wide opening", "Flat base"],
+      specifications: { "Material": "Cotton canvas", "GSM": "180-300", "Size": "35×40 cm (standard)", "Handle": "Self-fabric loop, 25 cm drop", "Base": "Gusseted flat base", "MOQ": "500 pcs" },
+      benefits: ["Comfortable long handles", "Stands upright when loaded", "Strong cotton canvas", "Easy to print and customize", "Machine washable"],
+      usage: ["Grocery shopping", "Retail packaging", "Trade shows", "Daily errands"],
+    },
+    "printed-pouch-cotton-bags": {
+      id: "printed-pouch-cotton-bags",
+      name: "Printed Pouch Cotton Bags",
+      category: "Cotton Bags",
+      short_description: "Custom-printed cotton pouch bags — perfect for brand promotion and retail packaging.",
+      description: "Our Printed Pouch Cotton Bags feature vibrant custom prints on soft cotton pouches. Ideal for cosmetic brands, jewelry lines, and event organizers who want sustainable branded packaging.",
+      features: ["Custom prints", "Pouch style", "Brand promotion", "Premium cotton", "Vibrant colors", "Soft hand-feel"],
+      specifications: { "Material": "100% cotton", "GSM": "140-220", "Sizes": "12×18 to 25×35 cm", "Print": "Screen / Digital / DTG", "Closure": "Drawstring / Zip", "MOQ": "300 pcs" },
+      benefits: ["Premium print quality", "Excellent brand visibility", "Soft and luxurious feel", "Reusable by end customer", "Multiple closure options"],
+      usage: ["Cosmetic packaging", "Jewelry brand pouches", "Event goodie bags", "Boutique retail packaging"],
+      isPopular: true,
+    },
+    "eco-friendly-cotton-bag": {
+      id: "eco-friendly-cotton-bag",
+      name: "Eco-Friendly Cotton Bag",
+      category: "Cotton Bags",
+      short_description: "100% eco-friendly cotton bag — a sustainable alternative to single-use plastic bags.",
+      description: "Our Eco-Friendly Cotton Bag is made from 100% natural cotton, GOTS-certifiable, and designed as a direct replacement for single-use plastic bags. Lightweight, washable, and long-lasting.",
+      features: ["Eco-friendly", "100% cotton", "Plastic alternative", "Washable", "GOTS certifiable", "Lightweight"],
+      specifications: { "Material": "100% organic cotton", "GSM": "120-180", "Size": "38×42 cm (standard)", "Handle": "Long shoulder strap", "Color": "Natural / Bleached white", "MOQ": "500 pcs" },
+      benefits: ["Replaces single-use plastic", "Washable and reusable", "Lightweight to carry", "Organic cotton option", "Biodegradable at end of life"],
+      usage: ["Everyday shopping", "Promotional bags", "Farmers markets", "Eco-conscious retail"],
+    },
+    "printed-shopping-cotton-bags": {
+      id: "printed-shopping-cotton-bags",
+      name: "Printed Shopping Cotton Bags",
+      category: "Cotton Bags",
+      short_description: "Vibrant printed cotton shopping bags for retail stores and brand merchandise.",
+      description: "Our Printed Shopping Cotton Bags are designed for retail and merchandise use. Full-color printing on sturdy cotton creates a walking billboard for your brand while offering customers a reusable bag they'll keep.",
+      features: ["Printed design", "Shopping size", "Brand ready", "Durable", "Full color", "Reinforced bottom"],
+      specifications: { "Material": "Cotton canvas", "GSM": "180-280", "Size": "38×42×12 cm (standard)", "Print": "Full-color screen / Digital", "Handle": "Short / Long", "MOQ": "500 pcs" },
+      benefits: ["Full-surface branding", "Walking billboard effect", "Durable reusable bag", "Customers keep and reuse", "Available in custom sizes"],
+      usage: ["Retail shopping bags", "Brand merchandise", "Store packaging", "Event and expo bags"],
+    },
+    "printed-drawstring-bag": {
+      id: "printed-drawstring-bag",
+      name: "Printed Drawstring Bag",
+      category: "Cotton Bags",
+      short_description: "Printed cotton drawstring bags for gifting, events, and promotional giveaways.",
+      description: "Our Printed Drawstring Bags combine the functionality of a drawstring closure with branded prints. Lightweight and compact, they are popular for event giveaways, gym kits, and school bags.",
+      features: ["Drawstring", "Printed", "Event ready", "Lightweight", "Backpack style", "Compact"],
+      specifications: { "Material": "Cotton / Cotton-poly", "GSM": "120-200", "Size": "35×42 cm (standard)", "Print": "Screen / Heat transfer", "Style": "Backpack drawstring", "MOQ": "300 pcs" },
+      benefits: ["Lightweight and portable", "Popular event giveaway", "Doubles as backpack", "Custom full-color print", "Economical per-unit cost"],
+      usage: ["Event giveaways", "Gymwear bags", "School and college bags", "Promotional campaigns"],
+    },
+    "cotton-bags-size-options": {
+      id: "cotton-bags-size-options",
+      name: "Cotton Bags with Size Options",
+      category: "Cotton Bags",
+      short_description: "Cotton bags available in multiple sizes to suit different needs and applications.",
+      description: "We offer cotton bags in a full range of sizes — from small 15 cm pouches to extra-large 50 cm shopping carriers. All sizes can be customized with prints, handles, closures, and gussets to match your requirements.",
+      features: ["Multiple sizes", "Customizable", "Versatile", "Bulk order", "Various handles", "Full range"],
+      specifications: { "Material": "100% cotton", "GSM": "120-300", "Sizes": "15×20 cm to 50×40×15 cm", "Handle Options": "Short / Long / Rope / Loop", "Closure Options": "Open / Drawstring / Zip / Button", "MOQ": "500 pcs" },
+      benefits: ["One supplier for all sizes", "Consistent quality across range", "Fully customizable", "Bulk pricing available", "Mixed-size orders accepted"],
+      usage: ["Multi-product retail packaging", "Corporate gift sets", "Hospitality amenity kits", "E-commerce packaging"],
+    },
+
+    // ── Canvas Bags ──
+    "loop-handle-plant-canvas-tote": {
+      id: "loop-handle-plant-canvas-tote",
+      name: "Loop Handle Plant Canvas Tote Bags",
+      category: "Canvas Bags",
+      short_description: "Trendy canvas tote bags with plant-themed designs and sturdy loop handles.",
+      description: "Our Loop Handle Plant Canvas Tote Bags feature nature-inspired plant and leaf designs printed on heavy-duty canvas. The reinforced loop handles and gusseted bottom make them functional for shopping and stylish as everyday accessories.",
+      features: ["Plant design", "Loop handles", "Trendy", "Heavy duty", "Gusseted base", "Premium canvas"],
+      specifications: { "Material": "12 oz cotton canvas", "Size": "38×42×10 cm", "Handle": "Reinforced loop, 30 cm drop", "Print": "Screen / DTG plant designs", "Base": "Gusseted", "MOQ": "300 pcs" },
+      benefits: ["Trendy nature designs", "Heavy-duty construction", "Functional gusseted base", "Popular retail item", "Reusable and sustainable"],
+      usage: ["Retail product", "Gift shops", "Eco boutiques", "Personal everyday use"],
+    },
+    "premium-canvas-tote-bags": {
+      id: "premium-canvas-tote-bags",
+      name: "Premium Canvas Tote Bags",
+      category: "Canvas Bags",
+      short_description: "Premium-quality canvas tote bags with refined stitching and elegant finish.",
+      description: "Our Premium Canvas Tote Bags are crafted from heavy 14-16 oz canvas with double-stitched seams and reinforced stress points. An elegant, minimalist design makes them perfect for upscale retail, corporate gifting, and personal use.",
+      features: ["Premium quality", "Elegant finish", "Durable canvas", "Versatile", "Double-stitched", "Reinforced stress points"],
+      specifications: { "Material": "14-16 oz cotton canvas", "Size": "40×45×12 cm", "Handle": "Leather / Cotton webbing", "Stitching": "Double-reinforced", "Interior": "Optional zip pocket", "MOQ": "200 pcs" },
+      benefits: ["Upscale look and feel", "Extremely durable", "Suitable for heavy loads", "Premium branding surface", "Long product lifespan"],
+      usage: ["Corporate gifts", "High-end retail bags", "Personal everyday tote", "Branded merchandise"],
+      isPopular: true,
+    },
+    "loop-handle-promotional-canvas-tote": {
+      id: "loop-handle-promotional-canvas-tote",
+      name: "Loop Handle Promotional Canvas Tote Bag",
+      category: "Canvas Bags",
+      short_description: "Promotional canvas tote bags with loop handles — ideal for corporate gifting and events.",
+      description: "Our Promotional Canvas Tote Bags are designed for brand exposure. The large flat surface is ideal for logo printing, while sturdy construction ensures the bag is reused long after the event.",
+      features: ["Promotional", "Corporate gifts", "Custom print", "Loop handles", "Large print area", "Event ready"],
+      specifications: { "Material": "10-12 oz cotton canvas", "Size": "38×42 cm (standard)", "Handle": "Loop handles, 25 cm drop", "Print": "Screen / Digital full color", "Colors": "Natural / Custom", "MOQ": "300 pcs" },
+      benefits: ["Maximum brand exposure", "Reused by recipients", "Strong and long-lasting", "Cost-effective marketing", "Eco-friendly brand image"],
+      usage: ["Corporate events", "Trade shows", "Product launches", "Employee gift kits"],
+    },
+    "multi-color-canvas-shopping-bag": {
+      id: "multi-color-canvas-shopping-bag",
+      name: "Multi Color Canvas Shopping Bag",
+      category: "Canvas Bags",
+      short_description: "Colorful multi-tone canvas shopping bags that combine style with sustainability.",
+      description: "Our Multi Color Canvas Shopping Bags feature vibrant color-block or multi-tone designs on durable canvas. A stylish alternative to plain bags, they appeal to fashion-conscious and eco-conscious shoppers alike.",
+      features: ["Multi color", "Shopping size", "Stylish", "Sustainable", "Color-block design", "Durable"],
+      specifications: { "Material": "10-12 oz dyed cotton canvas", "Size": "40×38×12 cm", "Handle": "Self-fabric or contrast", "Colors": "Multi-tone / Color-block", "Base": "Gusseted", "MOQ": "300 pcs" },
+      benefits: ["Eye-catching design", "Fashion-forward style", "Strong and functional", "Reusable many times", "Great retail appeal"],
+      usage: ["Fashion retail bags", "Lifestyle stores", "Gift bags", "Personal shopping"],
+    },
   };
 
   useEffect(() => {
@@ -470,6 +525,13 @@ const ProductDetail = () => {
       }, 300);
     }
   }, [id]);
+
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    return Object.values(productData)
+      .filter(p => p.category === product.category && p.id !== product.id)
+      .slice(0, 4);
+  }, [product]);
 
   if (loading) {
     return (
@@ -499,186 +561,233 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-gray-50">
+    <div className="bg-gray-50 min-h-screen">
+      <SEO
+        title={`${product.name} - ${product.category}`}
+        description={product.description}
+        keywords={`${product.name}, ${product.category}, sustainable products, HEGDE Resources`}
+        canonicalPath={`/products/${id}`}
+        ogImage={productImages[product.image]}
+      />
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
-          <Link to="/" className="hover:text-green-600 transition-colors">
-            Home
-          </Link>
-          <ChevronRight className="w-4 h-4" />
-          <Link to="/products" className="hover:text-green-600 transition-colors">
-            Products
-          </Link>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">{product.name}</span>
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pt-24">
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <Link to="/" className="hover:text-green-700 transition-colors">Home</Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <Link to="/products" className="hover:text-green-700 transition-colors">Products</Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="hover:text-green-700 transition-colors">{product.category}</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="text-gray-700 font-medium truncate">{product.name}</span>
+          </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-          {/* Product Image */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden shadow-xl bg-gray-100">
-              {product.imageUrl ? (
+      {/* Product Hero */}
+      <div className="bg-white pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Image */}
+            <div className="relative">
+              <div className="aspect-square rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm">
                 <img
-                  src={product.imageUrl}
+                  src={productImages[product.id]}
                   alt={product.name}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback to gradient background if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.className = `aspect-square rounded-2xl overflow-hidden shadow-xl ${
-                        product.category === "Organic Fertilizers" 
-                          ? "bg-gradient-to-br from-green-100 to-green-200" 
-                          : "bg-gradient-to-br from-blue-100 to-blue-200"
-                      }`;
-                      const icon = document.createElement('div');
-                      icon.className = 'absolute inset-0 flex items-center justify-center';
-                      icon.innerHTML = product.category === "Organic Fertilizers" 
-                        ? '<svg class="w-32 h-32 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>'
-                        : '<svg class="w-32 h-32 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>';
-                      parent.appendChild(icon);
-                    }
-                  }}
                 />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {product.category === "Organic Fertilizers" ? (
-                    <Leaf className="w-32 h-32 text-green-500" />
-                  ) : (
-                    <Package className="w-32 h-32 text-blue-500" />
-                  )}
-                </div>
-              )}
+              </div>
+              <div className="absolute top-4 left-4 flex gap-2">
+                <span className="bg-green-700 text-white text-xs font-medium px-3 py-1 rounded-full">
+                  {product.category}
+                </span>
+                {product.isPopular && (
+                  <span className="bg-amber-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                    Bestseller
+                  </span>
+                )}
+              </div>
             </div>
-            
-            {/* Badges */}
-            <div className="absolute top-6 left-6 flex gap-2">
-              <Badge className={`${
-                product.category === "Organic Fertilizers" 
-                  ? "bg-green-500" 
-                  : "bg-blue-500"
-              } text-white px-3 py-1`}>
-                {product.category}
-              </Badge>
-              {product.isPopular && (
-                <Badge className="bg-yellow-500 text-white px-3 py-1">
-                  Popular
-                </Badge>
-              )}
+
+            {/* Product Info */}
+            <div className="lg:sticky lg:top-24 lg:self-start space-y-6">
+              <div>
+                <p className="text-sm text-green-700 font-medium mb-2">{product.category}</p>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
+                <p className="text-gray-500 leading-relaxed">{product.short_description}</p>
+              </div>
+
+              {/* Quick Features */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-3">Key Features</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {product.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
+                      <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <span className="text-gray-700 text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quick Specs Preview */}
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="grid grid-cols-2 gap-3">
+                  {Object.entries(product.specifications).slice(0, 4).map(([key, value]) => (
+                    <div key={key}>
+                      <dt className="text-xs text-gray-400 uppercase tracking-wide">{key}</dt>
+                      <dd className="text-sm font-medium text-gray-800">{value}</dd>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="space-y-3">
+                <Button
+                  className="w-full bg-green-700 hover:bg-green-800 text-white h-12 text-base"
+                  onClick={() => setIsEnquiryOpen(true)}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Send Enquiry
+                </Button>
+                <div className="flex gap-3">
+                  <Link to="/products" className="flex-1">
+                    <Button variant="outline" className="w-full text-sm border-gray-200 hover:border-green-600 hover:text-green-700">
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      All Products
+                    </Button>
+                  </Link>
+                  <Link to="/contact" className="flex-1">
+                    <Button variant="outline" className="w-full text-sm border-gray-200 hover:border-green-600 hover:text-green-700">
+                      Contact Us
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Trust Signals */}
+              <div className="grid grid-cols-3 gap-3 pt-2">
+                <div className="flex flex-col items-center text-center gap-1.5 p-3 bg-green-50 rounded-lg">
+                  <Truck className="w-5 h-5 text-green-700" />
+                  <span className="text-xs text-gray-600">Global Shipping</span>
+                </div>
+                <div className="flex flex-col items-center text-center gap-1.5 p-3 bg-green-50 rounded-lg">
+                  <Shield className="w-5 h-5 text-green-700" />
+                  <span className="text-xs text-gray-600">Quality Assured</span>
+                </div>
+                <div className="flex flex-col items-center text-center gap-1.5 p-3 bg-green-50 rounded-lg">
+                  <Package className="w-5 h-5 text-green-700" />
+                  <span className="text-xs text-gray-600">Bulk Orders</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Product Info */}
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-2xl lg:text-3xl font-bold mb-4 text-gray-900">
-                {product.name}
-              </h1>
-              <p className="text-base text-gray-600">
-                {product.short_description}
-              </p>
+      {/* Detail Sections */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Description */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Product Description</h2>
+              <p className="text-gray-600 leading-relaxed">{product.description}</p>
             </div>
 
-            {/* Key Features */}
-            <div>
-              <h3 className="text-lg font-black mb-3 text-gray-900">Key Features</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {product.features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">{feature}</span>
+            {/* Benefits */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Benefits</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {product.benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-start gap-3 p-3 bg-green-50/50 rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm">{benefit}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="space-y-4">
-              <Button
-                size="lg"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-black py-3"
-                onClick={() => setIsEnquiryOpen(true)}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Request Enquiry
-              </Button>
-              
-              <div className="flex gap-4">
-                <Link to="/products" className="flex-1">
-                  <Button variant="outline" className="w-full">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Products
-                  </Button>
-                </Link>
-                <Link to="/contact" className="flex-1">
-                  <Button variant="outline" className="w-full">
-                    Contact Us
-                  </Button>
-                </Link>
+            {/* Applications */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Applications</h2>
+              <div className="flex flex-wrap gap-2">
+                {product.usage.map((use, index) => (
+                  <span key={index} className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-700 text-sm px-4 py-2 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-green-600 rounded-full" />
+                    {use}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Detailed Information */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Description & Benefits */}
-          <Card className="lg:col-span-2">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-bold mb-4 text-gray-900">Product Description</h2>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                {product.description}
-              </p>
-              
-              <h3 className="text-xl font-black mb-3 text-gray-900">Benefits</h3>
-              <ul className="space-y-2">
-                {product.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start space-x-2">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <h3 className="text-xl font-black mb-3 mt-6 text-gray-900">Usage Instructions</h3>
-              <ol className="space-y-2">
-                {product.usage.map((instruction, index) => (
-                  <li key={index} className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
-                      {index + 1}
-                    </div>
-                    <span className="text-gray-700">{instruction}</span>
-                  </li>
-                ))}
-              </ol>
-            </CardContent>
-          </Card>
-
-          {/* Specifications */}
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="text-xl font-black mb-4 text-gray-900">Specifications</h2>
-              <dl className="space-y-3">
+          {/* Sidebar - Full Specifications */}
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Specifications</h2>
+              <dl className="divide-y divide-gray-100">
                 {Object.entries(product.specifications).map(([key, value]) => (
-                  <div key={key} className="border-b border-gray-200 pb-2 last:border-0">
-                    <dt className="font-bold text-gray-900 text-sm">
-                      {key}
-                    </dt>
-                    <dd className="text-gray-600 text-sm">
-                      {value}
-                    </dd>
+                  <div key={key} className="flex justify-between py-3 first:pt-0 last:pb-0">
+                    <dt className="text-sm font-medium text-gray-500">{key}</dt>
+                    <dd className="text-sm text-gray-900 text-right">{value}</dd>
                   </div>
                 ))}
               </dl>
-            </CardContent>
-          </Card>
+            </div>
+
+            {/* Need Help Card */}
+            <div className="bg-green-800 text-white rounded-xl p-6">
+              <h3 className="font-bold mb-2">Need Custom Specifications?</h3>
+              <p className="text-green-100 text-sm mb-4">We offer custom sizes, prints, and materials. Get in touch for a tailored solution.</p>
+              <Link to="/contact">
+                <Button className="w-full bg-white text-green-800 hover:bg-green-50 text-sm font-semibold">
+                  Get Custom Quote
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <div className="border-t border-gray-200 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">More in {product.category}</h2>
+              <Link to="/products">
+                <Button variant="outline" className="text-sm border-gray-200 hover:border-green-600 hover:text-green-700">
+                  View All
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {relatedProducts.map((rp) => (
+                <Link key={rp.id} to={`/products/${rp.id}`} className="group">
+                  <div className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="aspect-square overflow-hidden bg-gray-50">
+                      <img
+                        src={productImages[rp.id]}
+                        alt={rp.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <h3 className="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition-colors line-clamp-1">{rp.name}</h3>
+                      <p className="text-xs text-gray-500 mt-1 line-clamp-2">{rp.short_description}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <EnquiryModal
         isOpen={isEnquiryOpen}

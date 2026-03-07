@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main Pages -->
+  <url><loc>https://hegderesources.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hegderesources.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hegderesources.com/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hegderesources.com/sustainability</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hegderesources.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Organic Fertilizers -->
+  <url><loc>https://hegderesources.com/products/vermi-compost</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/cow-dung-compost</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/coco-peat</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/neem-powder</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/rice-husk</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/steam-bone-meal</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Compostable Bioplastics -->
+  <url><loc>https://hegderesources.com/products/compostable-dcut-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/compostable-wcut-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/compostable-garbage-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/compostable-garment-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/compostable-grocery-rolls</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/compostable-shrink-film</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Eco-Friendly Tableware -->
+  <url><loc>https://hegderesources.com/products/areca-palm-tableware</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/bagasse-tableware</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/bamboo-products</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/kraft-paper-products</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Towels -->
+  <url><loc>https://hegderesources.com/products/bath-towels</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/hand-face-spa-towels</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/pool-towels</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/salon-towels</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/hotel-towels</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Jute Bags -->
+  <url><loc>https://hegderesources.com/products/jute-different-size-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-regular-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-bottle-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-flap-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-plain-carry-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-plain-pouch-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-plain-tote-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-pouch-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-zipper-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/jute-window-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Cotton Bags -->
+  <url><loc>https://hegderesources.com/products/brown-drawstring-cotton-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/cotton-loop-handle-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/printed-pouch-cotton-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/eco-friendly-cotton-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/printed-shopping-cotton-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/printed-drawstring-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/cotton-bags-size-options</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Canvas Tote Bags -->
+  <url><loc>https://hegderesources.com/products/loop-handle-plant-canvas-tote</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/premium-canvas-tote-bags</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/loop-handle-promotional-canvas-tote</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hegderesources.com/products/multi-color-canvas-shopping-bag</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

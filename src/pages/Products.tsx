@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Search, Leaf, Package, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import EnquiryModal from "@/components/EnquiryModal";
+import { productImages } from "@/lib/productImages";
+import heroImage from "@/assets/hero-sustainable.webp";
+import SEO from "@/components/SEO";
 
 interface Product {
   id: string;
@@ -14,7 +15,6 @@ interface Product {
   short_description: string;
   features: string[];
   isPopular?: boolean;
-  imageType?: string;
 }
 
 const Products = () => {
@@ -26,19 +26,26 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
 
-  const categories = ["All", "Organic Fertilizers", "Sustainable Packaging"];
+  const categories = [
+    "All",
+    "Organic Fertilizers",
+    "Compostable Bioplastics",
+    "Plant Based",
+    "100% Cotton Towels",
+    "Jute Bags",
+    "Cotton Bags",
+    "Canvas Bags",
+  ];
 
-  // Simplified product data
   const products: Product[] = [
-    // Organic Fertilizers
+    // ── Organic Fertilizers ──
     {
       id: "vermi-compost",
-      name: "Vermi-Compost",
+      name: "Vermi Compost",
       category: "Organic Fertilizers",
       short_description: "Premium quality earthworm processed organic fertilizer for enhanced soil fertility and plant growth.",
       features: ["100% organic", "Rich in nutrients", "Improves soil structure", "Eco-friendly"],
       isPopular: true,
-      imageType: "vermicompost"
     },
     {
       id: "cow-dung-compost",
@@ -46,40 +53,20 @@ const Products = () => {
       category: "Organic Fertilizers",
       short_description: "Traditional organic fertilizer made from well-decomposed cow dung, perfect for all crop types.",
       features: ["Natural fertilizer", "Slow release nutrients", "Improves soil health", "Chemical-free"],
-      imageType: "cowdung"
     },
     {
-      id: "organic-mix-fertilizer",
-      name: "Organic Mix Fertilizer",
+      id: "coco-peat",
+      name: "Coco Peat",
       category: "Organic Fertilizers",
-      short_description: "Balanced blend of organic materials providing complete nutrition for optimal plant development.",
-      features: ["Complete nutrition", "Balanced NPK", "Organic blend", "Enhanced growth"],
-      isPopular: true,
-      imageType: "organicmix"
+      short_description: "Excellent growing medium with superior water retention and aeration properties.",
+      features: ["Water retention", "Good drainage", "pH neutral", "Renewable resource"],
     },
     {
       id: "neem-powder",
       name: "Neem Powder",
       category: "Organic Fertilizers",
       short_description: "Natural pest deterrent and soil conditioner made from pure neem leaves and bark.",
-      features: ["Natural pesticide", "Soil conditioner", "Antimicrobial properties", "Safe for plants"],
-      imageType: "neempowder"
-    },
-    {
-      id: "coco-peat",
-      name: "Coco-Peat",
-      category: "Organic Fertilizers",
-      short_description: "Excellent growing medium with superior water retention and aeration properties.",
-      features: ["Water retention", "Good drainage", "pH neutral", "Renewable resource"],
-      imageType: "cocopeat"
-    },
-    {
-      id: "potting-mixture",
-      name: "Potting Mixture",
-      category: "Organic Fertilizers",
-      short_description: "Ready-to-use potting mix with perfect blend of organic materials for container gardening.",
-      features: ["Ready to use", "Perfect blend", "Container friendly", "Nutrient rich"],
-      imageType: "pottingmix"
+      features: ["Natural pesticide", "Soil conditioner", "Antimicrobial", "Safe for plants"],
     },
     {
       id: "rice-husk",
@@ -87,94 +74,298 @@ const Products = () => {
       category: "Organic Fertilizers",
       short_description: "Natural soil amendment that improves drainage and provides silica for stronger plants.",
       features: ["Improves drainage", "Rich in silica", "Lightweight", "Natural amendment"],
-      imageType: "ricehusk"
     },
     {
-      id: "fish-meal-manure",
-      name: "Fish-Meal Manure",
+      id: "steam-bone-meal",
+      name: "Steam Bone Meal Granules",
       category: "Organic Fertilizers",
-      short_description: "High protein organic fertilizer providing essential amino acids and nutrients for plants.",
-      features: ["High protein", "Amino acids", "Slow release", "Marine nutrients"],
-      imageType: "fishmeal"
-    },
-    {
-      id: "goat-dung-manure",
-      name: "Goat Dung Manure",
-      category: "Organic Fertilizers",
-      short_description: "Premium organic manure with high nutrient content, ideal for vegetable and fruit cultivation.",
-      features: ["High nutrients", "Quick acting", "Ideal for vegetables", "Organic matter"],
-      imageType: "goatdung"
-    },
-    {
-      id: "neem-oil",
-      name: "Neem Oil",
-      category: "Organic Fertilizers",
-      short_description: "Pure neem oil extract for natural pest control and plant health management.",
-      features: ["Natural pest control", "Plant health", "Pure extract", "Multi-purpose"],
+      short_description: "High phosphorus organic fertilizer from steam-processed animal bones for root and flower development.",
+      features: ["High phosphorus", "Slow release", "Root development", "Organic certified"],
       isPopular: true,
-      imageType: "neemoil"
     },
 
-    // Sustainable Packaging Materials
+    // ── Compostable Bioplastics ──
     {
-      id: "compostable-bioplastics",
-      name: "100% Compostable Bioplastics (CPCB Certified)",
-      category: "Sustainable Packaging",
-      short_description: "Certified compostable bioplastic packaging solutions that break down naturally in composting conditions.",
-      features: ["CPCB Certified", "100% compostable", "Eco-friendly", "Biodegradable"],
+      id: "compostable-dcut-bags",
+      name: "Compostable D-Cut Carry Bags",
+      category: "Compostable Bioplastics",
+      short_description: "CPCB certified D-cut carry bags made from compostable bioplastic, ideal for retail and grocery stores.",
+      features: ["CPCB Certified", "100% compostable", "D-cut design", "Retail ready"],
       isPopular: true,
-      imageType: "bioplastics"
     },
     {
-      id: "bagasse-packaging",
-      name: "Bagasse Packaging Material",
-      category: "Sustainable Packaging",
-      short_description: "Sustainable packaging made from sugarcane bagasse, a renewable agricultural waste product.",
-      features: ["Made from bagasse", "Renewable source", "Compostable", "Strong & durable"],
-      imageType: "bagasse"
+      id: "compostable-wcut-bags",
+      name: "Compostable W-Cut Carry Bags",
+      category: "Compostable Bioplastics",
+      short_description: "W-cut compostable carry bags offering enhanced strength and wider opening for easy packing.",
+      features: ["W-cut design", "Enhanced strength", "Compostable", "Eco-friendly"],
     },
     {
-      id: "paper-packaging",
-      name: "Paper Packaging Material",
-      category: "Sustainable Packaging",
-      short_description: "Recyclable and biodegradable paper-based packaging solutions for various applications.",
-      features: ["Recyclable", "Biodegradable", "Versatile", "Sustainable"],
-      imageType: "paperpackaging"
+      id: "compostable-garbage-bags",
+      name: "Compostable Garbage Bags",
+      category: "Compostable Bioplastics",
+      short_description: "Biodegradable garbage bags that break down naturally, perfect for responsible waste management.",
+      features: ["Biodegradable", "Leak-proof", "Multiple sizes", "Home compostable"],
     },
     {
-      id: "cotton-jute-canvas-bags",
-      name: "Cotton, Jute & Canvas Bags",
-      category: "Sustainable Packaging",
-      short_description: "Reusable bags made from natural fibers, perfect alternative to plastic bags.",
-      features: ["Reusable", "Natural fibers", "Durable", "Plastic alternative"],
+      id: "compostable-garment-bags",
+      name: "Compostable Garment Bags",
+      category: "Compostable Bioplastics",
+      short_description: "Transparent compostable garment covers for fashion and textile packaging needs.",
+      features: ["Transparent", "Garment safe", "Compostable", "Dust protection"],
+    },
+    {
+      id: "compostable-grocery-rolls",
+      name: "Compostable Grocery Rolls",
+      category: "Compostable Bioplastics",
+      short_description: "Roll-format compostable bags for grocery stores, supermarkets, and food packaging.",
+      features: ["Roll format", "Easy tear", "Food safe", "Compostable"],
+    },
+    {
+      id: "compostable-shrink-film",
+      name: "Compostable Shrink Film",
+      category: "Compostable Bioplastics",
+      short_description: "Eco-friendly shrink wrap film that fully composts, replacing traditional plastic shrink wrap.",
+      features: ["Shrink wrap", "Compostable", "Clear finish", "Industrial use"],
+    },
+
+    // ── Plant Based ──
+    {
+      id: "areca-palm-tableware",
+      name: "Areca Palm Tableware",
+      category: "Plant Based",
+      short_description: "Natural tableware made from fallen areca palm leaves — sturdy, elegant, and fully biodegradable.",
+      features: ["100% natural", "Biodegradable", "Microwave safe", "Chemical-free"],
       isPopular: true,
-      imageType: "fabricbags"
-    }
+    },
+    {
+      id: "bagasse-tableware",
+      name: "Bagasse Tableware",
+      category: "Plant Based",
+      short_description: "Sugarcane bagasse plates, bowls, and containers — strong, compostable, and food safe.",
+      features: ["Sugarcane fiber", "Compostable", "Oil resistant", "Microwave safe"],
+    },
+    {
+      id: "bamboo-products",
+      name: "Bamboo Products",
+      category: "Plant Based",
+      short_description: "Sustainable bamboo-based products including cutlery, straws, and kitchen essentials.",
+      features: ["Bamboo material", "Reusable", "Biodegradable", "Antibacterial"],
+    },
+    {
+      id: "kraft-paper-products",
+      name: "Kraft Paper Products",
+      category: "Plant Based",
+      short_description: "Recyclable kraft paper packaging, bags, and food containers for eco-conscious businesses.",
+      features: ["Recyclable", "Biodegradable", "Grease resistant", "Customizable"],
+    },
+
+    // ── 100% Cotton Towels ──
+    {
+      id: "bath-towels",
+      name: "Bath Towels",
+      category: "100% Cotton Towels",
+      short_description: "Premium 100% cotton bath towels with superior absorbency and luxurious softness.",
+      features: ["100% cotton", "Highly absorbent", "Soft texture", "Durable"],
+      isPopular: true,
+    },
+    {
+      id: "hand-face-spa-towels",
+      name: "Hand / Face / Spa Towels",
+      category: "100% Cotton Towels",
+      short_description: "Soft cotton towels sized for hand, face, and spa use — ideal for hospitality and wellness.",
+      features: ["Compact size", "Ultra soft", "Quick dry", "Lint-free"],
+    },
+    {
+      id: "pool-towels",
+      name: "Pool Towels",
+      category: "100% Cotton Towels",
+      short_description: "Large, quick-drying cotton pool towels with vibrant colors and chlorine-resistant fabric.",
+      features: ["Oversized", "Quick dry", "Chlorine resistant", "Fade resistant"],
+    },
+    {
+      id: "salon-towels",
+      name: "Salon Towels",
+      category: "100% Cotton Towels",
+      short_description: "Bleach-safe cotton towels designed for salon and barbershop daily use.",
+      features: ["Bleach safe", "Color fast", "Lightweight", "Economical"],
+    },
+    {
+      id: "hotel-towels",
+      name: "Hotel Towels",
+      category: "100% Cotton Towels",
+      short_description: "Luxury hotel-grade cotton towels with reinforced edges for commercial laundering.",
+      features: ["Hotel grade", "Reinforced edges", "Premium cotton", "Long lasting"],
+    },
+
+    // ── Jute Bags ──
+    {
+      id: "jute-different-size-bags",
+      name: "Different Size Jute Bags",
+      category: "Jute Bags",
+      short_description: "Jute bags available in multiple sizes for shopping, gifting, and promotional use.",
+      features: ["Multiple sizes", "Eco-friendly", "Sturdy handles", "Reusable"],
+      isPopular: true,
+    },
+    {
+      id: "jute-regular-bag",
+      name: "Regular Jute Bag",
+      category: "Jute Bags",
+      short_description: "Classic regular jute shopping bag — simple, strong, and sustainable.",
+      features: ["Classic design", "Strong build", "Sustainable", "Affordable"],
+    },
+    {
+      id: "jute-bottle-bags",
+      name: "Jute Bottle Bags",
+      category: "Jute Bags",
+      short_description: "Specially designed jute bags for carrying bottles safely — perfect for wine and beverages.",
+      features: ["Bottle fit", "Padded option", "Gift ready", "Reusable"],
+    },
+    {
+      id: "jute-flap-bag",
+      name: "Jute Flap Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a stylish flap closure for secure and elegant carrying.",
+      features: ["Flap closure", "Secure", "Stylish", "Durable"],
+    },
+    {
+      id: "jute-plain-carry-bag",
+      name: "Jute Plain Carry Bag",
+      category: "Jute Bags",
+      short_description: "Plain jute carry bag — lightweight, printable, and ideal for branding.",
+      features: ["Printable", "Lightweight", "Carry handles", "Brandable"],
+    },
+    {
+      id: "jute-plain-pouch-bag",
+      name: "Jute Plain Pouch Bag",
+      category: "Jute Bags",
+      short_description: "Compact jute pouch bag for small items, cosmetics, and gifts.",
+      features: ["Compact", "Drawstring", "Gift use", "Natural jute"],
+    },
+    {
+      id: "jute-plain-tote-bags",
+      name: "Jute Plain Tote Bags",
+      category: "Jute Bags",
+      short_description: "Spacious jute tote bags with flat bottom — perfect for everyday shopping.",
+      features: ["Tote style", "Flat bottom", "Spacious", "Everyday use"],
+    },
+    {
+      id: "jute-pouch-bags",
+      name: "Jute Pouch Bags",
+      category: "Jute Bags",
+      short_description: "Small jute pouch bags ideal for packaging, return gifts, and accessories.",
+      features: ["Pouch style", "Gift packaging", "Compact", "Versatile"],
+    },
+    {
+      id: "jute-zipper-bag",
+      name: "Jute Zipper Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a zip closure for added security — great for documents and valuables.",
+      features: ["Zip closure", "Secure", "Professional look", "Durable"],
+    },
+    {
+      id: "jute-window-bag",
+      name: "Jute Window Bag",
+      category: "Jute Bags",
+      short_description: "Jute bag with a transparent window for product visibility — ideal for retail display.",
+      features: ["Window panel", "Product display", "Retail ready", "Attractive"],
+    },
+
+    // ── Cotton Bags ──
+    {
+      id: "brown-drawstring-cotton-bag",
+      name: "Brown Drawstring Cotton Bag",
+      category: "Cotton Bags",
+      short_description: "Natural brown cotton drawstring bag — versatile for packaging, gifting, and storage.",
+      features: ["Drawstring closure", "Brown cotton", "Versatile", "Eco-friendly"],
+    },
+    {
+      id: "cotton-loop-handle-bag",
+      name: "Cotton Loop Handle Bag",
+      category: "Cotton Bags",
+      short_description: "Sturdy cotton bag with loop handles for comfortable carrying and daily shopping.",
+      features: ["Loop handles", "Sturdy build", "Comfortable carry", "Reusable"],
+    },
+    {
+      id: "printed-pouch-cotton-bags",
+      name: "Printed Pouch Cotton Bags",
+      category: "Cotton Bags",
+      short_description: "Custom-printed cotton pouch bags — perfect for brand promotion and retail packaging.",
+      features: ["Custom prints", "Pouch style", "Brand promotion", "Premium cotton"],
+      isPopular: true,
+    },
+    {
+      id: "eco-friendly-cotton-bag",
+      name: "Eco-Friendly Cotton Bag",
+      category: "Cotton Bags",
+      short_description: "100% eco-friendly cotton bag — a sustainable alternative to single-use plastic bags.",
+      features: ["Eco-friendly", "100% cotton", "Plastic alternative", "Washable"],
+    },
+    {
+      id: "printed-shopping-cotton-bags",
+      name: "Printed Shopping Cotton Bags",
+      category: "Cotton Bags",
+      short_description: "Vibrant printed cotton shopping bags for retail stores and brand merchandise.",
+      features: ["Printed design", "Shopping size", "Brand ready", "Durable"],
+    },
+    {
+      id: "printed-drawstring-bag",
+      name: "Printed Drawstring Bag",
+      category: "Cotton Bags",
+      short_description: "Printed cotton drawstring bags for gifting, events, and promotional giveaways.",
+      features: ["Drawstring", "Printed", "Event ready", "Lightweight"],
+    },
+    {
+      id: "cotton-bags-size-options",
+      name: "Cotton Bags with Size Options",
+      category: "Cotton Bags",
+      short_description: "Cotton bags available in multiple sizes to suit different needs and applications.",
+      features: ["Multiple sizes", "Customizable", "Versatile", "Bulk order"],
+    },
+
+    // ── Canvas Bags ──
+    {
+      id: "loop-handle-plant-canvas-tote",
+      name: "Loop Handle Plant Canvas Tote Bags",
+      category: "Canvas Bags",
+      short_description: "Trendy canvas tote bags with plant-themed designs and sturdy loop handles.",
+      features: ["Plant design", "Loop handles", "Trendy", "Heavy duty"],
+    },
+    {
+      id: "premium-canvas-tote-bags",
+      name: "Premium Canvas Tote Bags",
+      category: "Canvas Bags",
+      short_description: "Premium-quality canvas tote bags with refined stitching and elegant finish.",
+      features: ["Premium quality", "Elegant finish", "Durable canvas", "Versatile"],
+      isPopular: true,
+    },
+    {
+      id: "loop-handle-promotional-canvas-tote",
+      name: "Loop Handle Promotional Canvas Tote Bag",
+      category: "Canvas Bags",
+      short_description: "Promotional canvas tote bags with loop handles — ideal for corporate gifting and events.",
+      features: ["Promotional", "Corporate gifts", "Custom print", "Loop handles"],
+    },
+    {
+      id: "multi-color-canvas-shopping-bag",
+      name: "Multi Color Canvas Shopping Bag",
+      category: "Canvas Bags",
+      short_description: "Colorful multi-tone canvas shopping bags that combine style with sustainability.",
+      features: ["Multi color", "Shopping size", "Stylish", "Sustainable"],
+    },
   ];
 
-  // Function to get product image
-  const getProductImage = (imageType: string, category: string) => {
-    const imageMap: Record<string, string> = {
-      // Organic Fertilizers
-      vermicompost: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center",
-      cowdung: "https://images.unsplash.com/photo-1574924162449-3a5b88d6d47e?w=400&h=300&fit=crop&crop=center",
-      organicmix: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=400&h=300&fit=crop&crop=center",
-      neempowder: "https://images.unsplash.com/photo-1609501676725-7186f06ac4f0?w=400&h=300&fit=crop&crop=center",
-      cocopeat: "https://images.unsplash.com/photo-1583479648924-06e28d86b49e?w=400&h=300&fit=crop&crop=center",
-      pottingmix: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center",
-      ricehusk: "https://images.unsplash.com/photo-1574323359862-bc5bb2c31c4d?w=400&h=300&fit=crop&crop=center",
-      fishmeal: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&crop=center",
-      goatdung: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?w=400&h=300&fit=crop&crop=center",
-      neemoil: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=300&fit=crop&crop=center",
-      
-      // Sustainable Packaging
-      bioplastics: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=300&fit=crop&crop=center",
-      bagasse: "https://images.unsplash.com/photo-1586281010293-7c8005b2e3e7?w=400&h=300&fit=crop&crop=center",
-      paperpackaging: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop&crop=center",
-      fabricbags: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop&crop=center"
+  const getCategoryLabel = (category: string) => {
+    const labels: Record<string, string> = {
+      "Organic Fertilizers": "Fertilizer",
+      "Compostable Bioplastics": "Bioplastic",
+      "Plant Based": "Plant Based",
+      "100% Cotton Towels": "Towels",
+      "Jute Bags": "Jute",
+      "Cotton Bags": "Cotton",
+      "Canvas Bags": "Canvas",
     };
-
-    return imageMap[imageType] || `https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop&crop=center`;
+    return labels[category] || category;
   };
 
   const filteredProducts = products.filter((product) => {
@@ -199,197 +390,192 @@ const Products = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-16 bg-gradient-to-r from-green-900 via-green-800 to-green-900">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center hero-text">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">
-              Our <span className="text-green-300">Products</span>
+    <div>
+      <SEO
+        title="Product Catalog - Sustainable & Eco-Friendly Products"
+        description="Browse our complete range of organic fertilizers, compostable bioplastics, eco-friendly bags, cotton totes, jute bags, and sustainable packaging solutions."
+        keywords="organic fertilizers, compostable bags, jute bags, cotton bags, sustainable packaging, vermicompost, neem cake, bio products"
+        canonicalPath="/products"
+      />
+      {/* Hero */}
+      <section className="relative h-[50vh] min-h-[350px] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={heroImage}
+            alt="Hedge Resources sustainable product catalog"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-2xl">
+            <p className="section-label text-green-300 mb-4">Our Range</p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+              Product Catalog
             </h1>
-            <p className="text-base md:text-lg text-green-100 max-w-4xl mx-auto leading-relaxed">
-              Discover our comprehensive range of organic fertilizers and sustainable packaging solutions designed for a greener tomorrow
+            <p className="text-base md:text-lg text-white/80 max-w-xl leading-relaxed">
+              Browse our complete range of sustainable products — organic fertilizers, eco-packaging, textiles & more
             </p>
-            <div className="mt-8 flex justify-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-4 border border-white/20">
-                <p className="text-green-200 font-medium">Premium Quality • Eco-Friendly • Export Ready</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-16 text-black-content">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Search and Filter Section */}
-          <div className="mb-12">
-            <div className="max-w-4xl mx-auto">
-              {/* Search Bar */}
-              <div className="mb-8">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <Input
-                    type="text"
-                    placeholder="Search for organic fertilizers, packaging materials..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 h-12 text-base border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 rounded-lg bg-white shadow-sm transition-all"
-                  />
-                </div>
-              </div>
-              
-              {/* Category Filters */}
-              <div className="flex flex-wrap gap-3 justify-center">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    onClick={() => handleCategoryChange(category)}
-                    className={`h-10 px-6 rounded-full font-bold transition-all duration-300 ${
-                      selectedCategory === category 
-                        ? "bg-green-600 hover:bg-green-700 text-white shadow-md" 
-                        : "border border-gray-200 hover:border-green-400 hover:text-green-600 bg-white"
-                    }`}
-                  >
-                    {category === "Organic Fertilizers" && <Leaf className="w-4 h-4 mr-2" />}
-                    {category === "Sustainable Packaging" && <Package className="w-4 h-4 mr-2" />}
-                    {category}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* Main Shop Layout */}
+      <section className="bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
 
-          {/* Products Grid */}
-          {filteredProducts.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="bg-white rounded-3xl shadow-xl p-12 max-w-md mx-auto">
-                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Search className="w-10 h-10 text-gray-400" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">No Products Found</h3>
-                <p className="text-gray-600 text-base mb-6">No products match your current search criteria.</p>
-                <Button 
-                  onClick={() => { setSearchTerm(""); setSelectedCategory("All"); }} 
-                  className="bg-green-600 hover:bg-green-700 h-12 px-8 rounded-xl"
-                >
-                  Clear All Filters
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-              {filteredProducts.map((product, index) => (
-                <Card
-                  key={product.id}
-                  className={`group overflow-hidden bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-0 ${
-                    index === 0 ? 'xl:col-span-1' : ''
-                  }`}
-                >
-                  {/* Image Section */}
-                  <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                    <img
-                      src={getProductImage(product.imageType || 'default', product.category)}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.className = `relative h-64 overflow-hidden ${
-                            product.category === "Organic Fertilizers" 
-                              ? "bg-gradient-to-br from-green-100 via-green-200 to-emerald-200" 
-                              : "bg-gradient-to-br from-blue-100 via-blue-200 to-indigo-200"
-                          }`;
-                          const icon = document.createElement('div');
-                          icon.className = 'absolute inset-0 flex items-center justify-center';
-                          icon.innerHTML = product.category === "Organic Fertilizers" 
-                            ? '<svg class="w-20 h-20 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>'
-                            : '<svg class="w-20 h-20 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path></svg>';
-                          parent.appendChild(icon);
-                        }
-                      }}
+            {/* Sidebar Filters */}
+            <aside className="lg:w-64 shrink-0">
+              <div className="lg:sticky lg:top-24 space-y-6">
+                {/* Search */}
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 block">Search</label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder="Search products..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 h-10 text-sm bg-white border-gray-200 focus:border-green-600 rounded-lg"
                     />
-                    
-                    {/* Enhanced Badges */}
-                    <div className="absolute top-6 left-6 flex flex-col gap-2">
-                      <Badge className={`${
-                        product.category === "Organic Fertilizers" 
-                          ? "bg-green-600 hover:bg-green-700" 
-                          : "bg-blue-600 hover:bg-blue-700"
-                      } text-white shadow-lg backdrop-blur-sm border-0 px-3 py-1`}>
-                        {product.category.split(" ")[0]}
-                      </Badge>
-                      {product.isPopular && (
-                        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg backdrop-blur-sm border-0 px-3 py-1">
-                          ⭐ Popular
-                        </Badge>
-                      )}
-                    </div>
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
+                </div>
 
-                  <CardContent className="p-8">
-                    <h3 className="text-lg font-bold mb-4 text-gray-900 group-hover:text-green-600 transition-colors duration-300">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-600 text-base mb-6 leading-relaxed">
-                      {product.short_description}
-                    </p>
-                    
-                    {/* Enhanced Features */}
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Key Features</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {product.features.slice(0, 3).map((feature, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="secondary" 
-                            className="text-xs px-3 py-1 bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-                          >
-                            {feature}
-                          </Badge>
-                        ))}
-                        {product.features.length > 3 && (
-                          <Badge 
-                            variant="outline" 
-                            className="text-xs px-3 py-1 border-gray-300 text-gray-600 hover:border-green-400 hover:text-green-600 transition-colors"
-                          >
-                            +{product.features.length - 3} more
-                          </Badge>
-                        )}
+                {/* Categories */}
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 block">Categories</label>
+                  <div className="space-y-1">
+                    {categories.map((category) => {
+                      const count = category === "All"
+                        ? products.length
+                        : products.filter(p => p.category === category).length;
+                      return (
+                        <button
+                          key={category}
+                          onClick={() => handleCategoryChange(category)}
+                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
+                            selectedCategory === category
+                              ? "bg-green-700 text-white font-medium"
+                              : "text-gray-600 hover:bg-white hover:text-green-700"
+                          }`}
+                        >
+                          <span>{category}</span>
+                          <span className={`text-xs ${selectedCategory === category ? "text-green-200" : "text-gray-400"}`}>
+                            {count}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Quick Info */}
+                <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                  <p className="text-xs font-semibold text-green-800 mb-1">Need bulk orders?</p>
+                  <p className="text-xs text-green-700 mb-3">Custom branding, sizing & packaging available for all products.</p>
+                  <Link to="/contact">
+                    <Button size="sm" className="w-full bg-green-700 hover:bg-green-800 text-white text-xs">
+                      Get Custom Quote
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </aside>
+
+            {/* Product Grid Area */}
+            <div className="flex-1 min-w-0">
+              {/* Toolbar */}
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm text-gray-500">
+                  Showing <span className="font-semibold text-gray-700">{filteredProducts.length}</span>
+                  {selectedCategory !== "All" && <> in <span className="font-semibold text-green-700">{selectedCategory}</span></>}
+                  {searchTerm && <> matching &ldquo;<span className="font-semibold text-gray-700">{searchTerm}</span>&rdquo;</>}                </p>
+                {(searchTerm || selectedCategory !== "All") && (
+                  <button
+                    onClick={() => { setSearchTerm(""); handleCategoryChange("All"); }}
+                    className="text-xs text-green-700 hover:text-green-800 font-medium"
+                  >
+                    Clear filters
+                  </button>
+                )}
+              </div>
+
+              {filteredProducts.length === 0 ? (
+                <div className="text-center py-20 bg-white rounded-xl border border-gray-100">
+                  <Search className="w-10 h-10 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No Products Found</h3>
+                  <p className="text-gray-500 text-sm mb-4">Try a different search or category.</p>
+                  <Button
+                    size="sm"
+                    onClick={() => { setSearchTerm(""); handleCategoryChange("All"); }}
+                    className="bg-green-700 hover:bg-green-800 text-white"
+                  >
+                    View All Products
+                  </Button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-200"
+                    >
+                      {/* Product Image */}
+                      <Link to={`/products/${product.id}`} className="block relative aspect-square bg-gray-50 overflow-hidden">
+                        <img
+                          src={productImages[product.id]}
+                          alt={product.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        {/* Badges */}
+                        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
+                          {product.isPopular && (
+                            <span className="bg-amber-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                              Bestseller
+                            </span>
+                          )}
+                        </div>
+                        {/* Quick Enquiry overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200" />
+                        <button
+                          onClick={(e) => { e.preventDefault(); handleEnquiry(product); }}
+                          className="absolute bottom-3 left-3 right-3 bg-green-700 text-white text-xs font-medium py-2.5 rounded-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 hover:bg-green-800"
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
+                          Send Enquiry
+                        </button>
+                      </Link>
+
+                      {/* Product Info */}
+                      <div className="p-4">
+                        <p className="text-[10px] font-medium text-green-700 uppercase tracking-wider mb-1">
+                          {getCategoryLabel(product.category)}
+                        </p>
+                        <Link to={`/products/${product.id}`}>
+                          <h3 className="text-sm font-semibold mb-1.5 group-hover:text-green-700 transition-colors leading-tight">
+                            {product.name}
+                          </h3>
+                        </Link>
+                        <p className="text-gray-500 text-xs leading-relaxed line-clamp-2 mb-3">
+                          {product.short_description}
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {product.features.slice(0, 3).map((feature, i) => (
+                            <span key={i} className="text-[10px] px-1.5 py-0.5 bg-gray-50 text-gray-500 rounded">
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </CardContent>
-
-                  <CardFooter className="p-8 pt-0">
-                    <div className="flex flex-col gap-4 w-full">
-                      <Link to={`/products/${product.id}`} className="w-full">
-                        <Button 
-                          variant="outline" 
-                          className="w-full h-12 border-2 border-gray-200 hover:border-green-500 hover:text-green-600 rounded-xl font-medium transition-all duration-300"
-                        >
-                          View Detailed Specs
-                        </Button>
-                      </Link>
-                      <Button 
-                        onClick={() => handleEnquiry(product)}
-                        className="w-full h-12 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                      >
-                        <ShoppingCart className="w-5 h-5 mr-2" />
-                        Request Quote
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
-              ))}
+                  ))}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
 
