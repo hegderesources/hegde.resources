@@ -21,6 +21,7 @@ const Home = () => {
             src={heroImage}
             alt="Sustainable agriculture and eco-friendly practices"
             className="w-full h-full object-cover"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 hero-gradient"></div>
         </div>
