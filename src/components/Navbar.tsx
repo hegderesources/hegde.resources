@@ -46,6 +46,8 @@ const Navbar = () => {
               src={logo}
               alt="HEGDE Resources"
               className={`h-10 w-auto lg:h-14 object-contain transition-all duration-300 ${isTransparent ? "brightness-0 invert" : ""}`}
+              width={140}
+              height={56}
             />
           </Link>
 
@@ -70,7 +72,7 @@ const Navbar = () => {
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Link to="/contact">
+            <Link to="/contact" aria-label="Get in Touch">
               <Button
                 size="sm"
                 className={`hidden md:inline-flex text-sm font-medium px-5 py-2 rounded-md transition-colors duration-200 ${
@@ -85,6 +87,7 @@ const Navbar = () => {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               className={`lg:hidden p-2 rounded-md transition-colors ${
                 isTransparent ? "text-white hover:bg-white/10" : "text-gray-700 hover:bg-gray-100"
               }`}

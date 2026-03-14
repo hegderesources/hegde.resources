@@ -16,6 +16,8 @@ const Footer = () => {
                 src={logo}
                 alt="HEGDE Resources"
                 className="h-16 brightness-0 invert"
+                width={160}
+                height={64}
                 style={{ objectFit: "contain" }}
               />
             </Link>
