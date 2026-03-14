@@ -29,11 +29,10 @@ const Home = () => {
           <div className="max-w-2xl">
             <p className="section-label text-green-300 mb-4">Sustainable Solutions from India</p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-              Empowering Agriculture with Eco-Friendly Products
+              Every purchase you make, contributes to a healthier planet.
             </h1>
             <p className="text-base md:text-lg text-white/80 mb-8 max-w-xl leading-relaxed">
-              Leading Indian exporter of organic fertilizers, eco-friendly
-              packaging, and premium textiles — trusted across 10+ countries.
+              Leading Indian exporter of organic fertilizers, sustainable packaging, eco-friendly bags & tableware, along with premium textiles — trusted across 10+ countries.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/products">

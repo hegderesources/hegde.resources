@@ -33,7 +33,7 @@ const About = () => {
               From a small initiative to a global exporter — learn how we're transforming agriculture and packaging, one eco-friendly product at a time.
             </p>
             <div className="flex items-center gap-6 text-sm text-green-300">
-              <span>Since 2020</span>
+              <span>Since 2025</span>
               <span className="w-1 h-1 rounded-full bg-green-400"></span>
               <span>Made in India</span>
               <span className="w-1 h-1 rounded-full bg-green-400"></span>
@@ -48,20 +48,20 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">100+</div>
-              <div className="text-sm text-green-200">Happy Clients</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
+              <div className="text-sm text-green-200">Sustainable</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">500T+</div>
-              <div className="text-sm text-green-200">Organic Compost</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">50+</div>
+              <div className="text-sm text-green-200">Products Available</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">1M+</div>
-              <div className="text-sm text-green-200">Eco Packages</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
+              <div className="text-sm text-green-200">Eco-Friendly</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">10+</div>
-              <div className="text-sm text-green-200">Countries Served</div>
+              <div className="text-2xl md:text-3xl font-bold mb-1">Made in</div>
+              <div className="text-sm text-green-200">India</div>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ const About = () => {
               <div className="bg-green-50 rounded-lg p-6">
                 <Handshake className="w-7 h-7 text-green-700 mb-3" />
                 <h3 className="text-sm font-semibold mb-1">Global Partners</h3>
-                <p className="text-xs text-gray-500">Trusted by 100+ clients across 10+ countries worldwide</p>
+                <p className="text-xs text-gray-500">Supplying sustainable products globally from India</p>
               </div>
             </div>
           </div>
@@ -151,10 +151,7 @@ const About = () => {
               </div>
               <h3 className="text-lg font-semibold mb-3 text-white">Our Mission</h3>
               <p className="text-green-200 text-sm leading-relaxed">
-                To provide high-quality, eco-friendly products that reduce
-                environmental footprint while promoting sustainable
-                agriculture and responsible consumption. We foster conscious
-                consumption and empower individuals to make a difference.
+                To be a trusted partner for supplying sustainable products of great quality.
               </p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Recycle, Leaf, TrendingUp, Globe, CheckCircle, Droplets, Sun, TreePine, Factory, ArrowRight } from "lucide-react";
+import { Recycle, Leaf, TrendingUp, Globe, CheckCircle, Droplets, Sun, TreePine, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/sustainability-impact.webp";
 import SEO from "@/components/SEO";
@@ -44,30 +44,6 @@ const Sustainability = () => {
                   Partner With Us
                 </Button>
               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Stats Row */}
-      <section className="bg-green-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">1000+</div>
-              <div className="text-sm text-green-200">Tons Waste Diverted</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">500+</div>
-              <div className="text-sm text-green-200">Tons Organic Compost</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">10+</div>
-              <div className="text-sm text-green-200">Countries Reached</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold mb-1">30%</div>
-              <div className="text-sm text-green-200">Carbon Reduction YoY</div>
             </div>
           </div>
         </div>
@@ -128,23 +104,23 @@ const Sustainability = () => {
             {[
               {
                 icon: Leaf,
-                title: "Organic Waste Management",
-                desc: "We transform organic waste into nutrient-rich compost through advanced vermiculture processes, reducing landfill waste while creating valuable agricultural inputs.",
+                title: "Certified Organic Sourcing",
+                desc: "We source only from certified organic farms and trusted suppliers, ensuring every product meets strict quality and sustainability standards.",
               },
               {
                 icon: Recycle,
-                title: "Circular Economy Products",
+                title: "Eco-Friendly Product Range",
                 desc: "Our products are designed with a circular approach, ensuring materials can be composted or recycled, minimizing waste and maximizing resource efficiency.",
               },
               {
                 icon: TreePine,
-                title: "Local Sourcing & Fair Trade",
-                desc: "We partner with local farmers and suppliers within a 200km radius, reducing transportation emissions while supporting community economic development.",
+                title: "Ethical Supply Chain",
+                desc: "We partner with local farmers and suppliers across India, supporting fair trade practices and community economic development.",
               },
               {
-                icon: Factory,
-                title: "Clean Manufacturing",
-                desc: "Our production facilities use solar energy, rainwater harvesting, and zero-discharge systems to minimize our manufacturing footprint.",
+                icon: ShieldCheck,
+                title: "Quality Assurance",
+                desc: "Every product undergoes rigorous quality checks to ensure it meets international export standards before reaching our global customers.",
               },
             ].map((item) => (
               <div key={item.title} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/15 transition-colors">

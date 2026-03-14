@@ -1,8 +1,8 @@
 // Product image map — maps product IDs to their image imports
 
 // Organic Fertilizers
-import vermiCompost from "@/assets/products/organic-fertilizers/vermi-compost.webp";
-import cowDungCompost from "@/assets/products/organic-fertilizers/cow-dung-compost.webp";
+import vermiCompost from "@/assets/products/organic-fertilizers/Gemini  - Vermicompost.png";
+import cowDungCompost from "@/assets/products/organic-fertilizers/Gemini  - Cow-Dung Compost.png";
 import cocoPeat from "@/assets/products/organic-fertilizers/coco-peat.webp";
 import neemPowder from "@/assets/products/organic-fertilizers/neem-powder.webp";
 import riceHusk from "@/assets/products/organic-fertilizers/rice-husk.webp";
