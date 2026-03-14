@@ -580,16 +580,7 @@ const ProductDetail = () => {
           "@type": "Brand",
           "name": "HEGDE Resources"
         },
-        "category": product.category,
-        "offers": {
-          "@type": "Offer",
-          "url": `https://hegderesources.com/products/${id}`,
-          "availability": "https://schema.org/InStock",
-          "seller": {
-            "@type": "Organization",
-            "name": "HEGDE Resources"
-          }
-        }
+        "category": product.category
       }) }} />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100">
