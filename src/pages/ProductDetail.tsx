@@ -569,6 +569,28 @@ const ProductDetail = () => {
         canonicalPath={`/products/${id}`}
         ogImage={productImages[product.image]}
       />
+      {/* Product JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product.name,
+        "description": product.description,
+        "image": [`https://hegderesources.com${productImages[product.id]}`],
+        "brand": {
+          "@type": "Brand",
+          "name": "HEGDE Resources"
+        },
+        "category": product.category,
+        "offers": {
+          "@type": "Offer",
+          "url": `https://hegderesources.com/products/${id}`,
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@type": "Organization",
+            "name": "HEGDE Resources"
+          }
+        }
+      }) }} />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pt-20 md:pt-24">
