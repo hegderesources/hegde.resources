@@ -138,10 +138,7 @@ const About = () => {
               </div>
               <h3 className="text-lg font-semibold mb-3 text-white">Our Vision</h3>
               <p className="text-green-200 text-sm leading-relaxed">
-                To be a global leader in sustainable products, creating a
-                positive environmental impact while supporting local
-                communities and farming practices. We envision a world where
-                sustainability is not a choice but a way of life.
+                To be one of the leading exporters of sustainable products from India to the world.
               </p>
             </div>
 
